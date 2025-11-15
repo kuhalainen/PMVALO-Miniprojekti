@@ -1,5 +1,8 @@
-CREATE TABLE todos (
-  id SERIAL PRIMARY KEY, 
-  content TEXT NOT NULL,
-  done BOOLEAN DEFAULT FALSE
-)
+CREATE TABLE items (
+    id INTEGER PRIMARY KEY,
+    title TEXT,
+    writer TEXT,
+    year TEXT,
+    isbn TEXT,
+    user_id INTEGER REFERENCES users
+);
