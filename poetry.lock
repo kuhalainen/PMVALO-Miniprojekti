@@ -566,6 +566,9 @@ files = [
 
 [[package]]
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ff87799 (etusivulla näkyy lisätyt kirjat)
 name = "postgres"
 version = "4.0"
 description = "postgres is a high-value abstraction over psycopg2."
@@ -673,6 +676,7 @@ files = [
 [package.dependencies]
 psycopg2-binary = "*"
 
+<<<<<<< HEAD
 =======
 name = "outcome"
 version = "1.3.0.post0"
@@ -715,6 +719,8 @@ files = [
 ]
 
 >>>>>>> 2800ef1 (Add initial robot testing)
+=======
+>>>>>>> ff87799 (etusivulla näkyy lisätyt kirjat)
 [[package]]
 name = "python-dotenv"
 version = "1.2.1"
@@ -1069,7 +1075,11 @@ h11 = ">=0.16.0,<1"
 lock-version = "2.1"
 python-versions = "^3.12"
 <<<<<<< HEAD
+<<<<<<< HEAD
 content-hash = "bf930afcdd247edce3a99a9af5aa6d8e1f108af74d1f7ff15c9abded178fa2cb"
 =======
 content-hash = "140cf2cc5031acb5452a165be97f0e7324c0a213312d0965326be25f7c0936af"
 >>>>>>> 2800ef1 (Add initial robot testing)
+=======
+content-hash = "bf930afcdd247edce3a99a9af5aa6d8e1f108af74d1f7ff15c9abded178fa2cb"
+>>>>>>> ff87799 (etusivulla näkyy lisätyt kirjat)

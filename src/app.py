@@ -6,9 +6,16 @@ from config import app, test_env
 from util import validate_todo
 import os
 from dotenv import load_dotenv
+<<<<<<< HEAD
 
 load_dotenv()
 app = Flask(__name__)
+=======
+from config import text
+
+
+load_dotenv()
+>>>>>>> ff87799 (etusivulla näkyy lisätyt kirjat)
 app.secret_key = os.getenv("SECRET_KEY")
 
 if not app.secret_key:
@@ -17,10 +24,10 @@ if not app.secret_key:
 @app.route("/")
 
 def index():
-    #todos = get_todos()
-    #unfinished = len([todo for todo in todos if not todo.done])
-    #return render_template("index.html", todos=todos, unfinished=unfinished)
-    return render_template("index.html") 
+    sql = text("SELECT * FROM items")
+    query = db.session.execute(sql)
+    items = query.fetchall()
+    return render_template("index.html", items=items) 
 
 
 @app.route('/books/new')
@@ -41,16 +48,15 @@ def create_book():
         flash('Title and author are required.', 'error')
         return redirect('/books/new')
 
-    sql = "INSERT INTO items (title, writer, year, isbn, publisher) VALUES (:title, :writer, :year, :isbn, :publisher)"
-    
-    #db.session.execute(sql, {
-    #    'title': title,
-    #    'writer': author,
-    #    'year': year,
-    #    'isbn': isbn,
-    #    'publisher': publisher
-    #})
-    #db.session.commit()
+    sql = text("INSERT INTO items (title, writer, year, isbn, publisher) VALUES (:title, :writer, :year, :isbn, :publisher)")
+    db.session.execute(sql, {
+       'title': title,
+       'writer': author,
+       'year': year,
+       'isbn': isbn,
+       'publisher': publisher
+    })
+    db.session.commit()
 
     flash('Kirja lisätty tietokantaan.', 'success')
     return redirect('/')
