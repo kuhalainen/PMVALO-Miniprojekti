@@ -1,11 +1,18 @@
 from flask import Flask, redirect, render_template, request, jsonify, flash
-#from config import db
-#from db_helper import reset_db
-#from repositories.todo_repository import get_todos, create_todo, set_done
-#from config import app, test_env
-#from util import validate_todo
+from config import db
+from db_helper import reset_db
+from repositories.todo_repository import get_todos, create_todo, set_done
+from config import app, test_env
+from util import validate_todo
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY")
+
+if not app.secret_key:
+    print("WARNING: Secret key not found. Check your .env file.")
 
 @app.route("/")
 
