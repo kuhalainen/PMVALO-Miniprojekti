@@ -12,7 +12,8 @@ dependencies = [
     "flask-sqlalchemy (>=3.1.1,<4.0.0)",
     "dotenv (>=0.9.9,<0.10.0)",
     "sqlalchemy (>=2.0.44,<3.0.0)",
-    "requests (>=2.32.5,<3.0.0)"
+    "postgres (>=4.0,<5.0)",
+    "python-dotenv (>=1.2.1,<2.0.0)"
 ]
 
 [tool.poetry]
