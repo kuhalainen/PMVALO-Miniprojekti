@@ -12,21 +12,7 @@ dependencies = [
     "flask-sqlalchemy (>=3.1.1,<4.0.0)",
     "dotenv (>=0.9.9,<0.10.0)",
     "sqlalchemy (>=2.0.44,<3.0.0)",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    "requests (>=2.32.5,<3.0.0)",
->>>>>>> 94b3f56 (fix typo, missing comma)
-    "postgres (>=4.0,<5.0)",
-    "python-dotenv (>=1.2.1,<2.0.0)"
-=======
     "requests (>=2.32.5,<3.0.0)"
->>>>>>> 2800ef1 (Add initial robot testing)
-=======
-    "postgres (>=4.0,<5.0)",
-    "python-dotenv (>=1.2.1,<2.0.0)"
->>>>>>> ff87799 (etusivulla näkyy lisätyt kirjat)
 ]
 
 [tool.poetry]
@@ -38,6 +24,7 @@ build-backend = "poetry.core.masonry.api"
 
 [dependency-groups]
 dev = [
+    "robot (>=20071211,<20071212)",
     "robotframework (>=7.3.2,<8.0.0)",
     "robotframework-seleniumlibrary (>=6.8.0,<7.0.0)"
 ]
