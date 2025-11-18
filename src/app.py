@@ -58,7 +58,4 @@ def create_book():
     })
     db.session.commit()
 
-    flash('Kirja lisätty tietokantaan.', 'success')
     return redirect('/')
-
-
