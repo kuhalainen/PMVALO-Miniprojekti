@@ -6,23 +6,10 @@ from config import app, test_env
 from util import validate_todo
 import os
 from dotenv import load_dotenv
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-load_dotenv()
-app = Flask(__name__)
-=======
 from config import text
 
 
 load_dotenv()
->>>>>>> ff87799 (etusivulla näkyy lisätyt kirjat)
-=======
-from config import text
-
-
-load_dotenv()
->>>>>>> ff87799 (etusivulla näkyy lisätyt kirjat)
 app.secret_key = os.getenv("SECRET_KEY")
 
 if not app.secret_key:
@@ -34,22 +21,12 @@ def index():
     sql = text("SELECT * FROM items")
     query = db.session.execute(sql)
     items = query.fetchall()
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 767157d (Kirjat näkyy järkevämmin)
     books = []
     for item in items:
         book = f'{item[1]}, Author: {item[2]}, year: {item[3]}, ISBN: {item[4]}, Publisher: {item[5]}'
         books.append(book)
     return render_template("index.html", items=books)
 
-<<<<<<< HEAD
-=======
-    return render_template("index.html", items=items) 
->>>>>>> ff87799 (etusivulla näkyy lisätyt kirjat)
-=======
->>>>>>> 767157d (Kirjat näkyy järkevämmin)
 
 
 @app.route('/books/new')
