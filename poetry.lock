@@ -579,6 +579,7 @@ files = [
 [[package]]
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> ff87799 (etusivulla näkyy lisätyt kirjat)
 name = "postgres"
@@ -690,6 +691,8 @@ psycopg2-binary = "*"
 
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> 032c043d598ea4e5ab0056df007915a204913b19
 name = "outcome"
 version = "1.3.0.post0"
 description = "Capture the outcome of Python function calls."
@@ -838,9 +841,12 @@ files = [
     {file = "PySocks-1.7.1.tar.gz", hash = "sha256:3f8804571ebe159c380ac6de37643bb4685970655d3bba243530d6558b799aa0"},
 ]
 
+<<<<<<< HEAD
 >>>>>>> 2800ef1 (Add initial robot testing)
 =======
 >>>>>>> ff87799 (etusivulla näkyy lisätyt kirjat)
+=======
+>>>>>>> 032c043d598ea4e5ab0056df007915a204913b19
 [[package]]
 name = "python-dotenv"
 version = "1.2.1"
@@ -1197,6 +1203,7 @@ python-versions = "^3.12"
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 content-hash = "bf930afcdd247edce3a99a9af5aa6d8e1f108af74d1f7ff15c9abded178fa2cb"
 =======
 content-hash = "140cf2cc5031acb5452a165be97f0e7324c0a213312d0965326be25f7c0936af"
@@ -1207,3 +1214,6 @@ content-hash = "bf930afcdd247edce3a99a9af5aa6d8e1f108af74d1f7ff15c9abded178fa2cb
 =======
 content-hash = "780457e3514220e3e6f150dcc9a8bf6953d1b33f46bc9f3681638b3c7b0151e5"
 >>>>>>> 7b93194 (update poetry.lock)
+=======
+content-hash = "780457e3514220e3e6f150dcc9a8bf6953d1b33f46bc9f3681638b3c7b0151e5"
+>>>>>>> 032c043d598ea4e5ab0056df007915a204913b19

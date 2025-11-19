@@ -6,16 +6,17 @@ from config import app, test_env
 from util import validate_todo
 import os
 from dotenv import load_dotenv
-<<<<<<< HEAD
 
-load_dotenv()
 app = Flask(__name__)
-=======
+from config import text
+
+
+
 from config import text
 
 
 load_dotenv()
->>>>>>> ff87799 (etusivulla näkyy lisätyt kirjat)
+
 app.secret_key = os.getenv("SECRET_KEY")
 
 if not app.secret_key:
