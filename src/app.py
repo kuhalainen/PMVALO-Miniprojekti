@@ -27,7 +27,12 @@ def index():
     sql = text("SELECT * FROM items")
     query = db.session.execute(sql)
     items = query.fetchall()
-    return render_template("index.html", items=items) 
+    books = []
+    for item in items:
+        book = f'{item[1]}, Author: {item[2]}, year: {item[3]}, ISBN: {item[4]}, Publisher: {item[5]}'
+        books.append(book)
+    return render_template("index.html", items=books)
+
 
 
 @app.route('/books/new')
