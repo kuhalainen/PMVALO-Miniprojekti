@@ -35,15 +35,21 @@ def index():
     query = db.session.execute(sql)
     items = query.fetchall()
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 767157d (Kirjat näkyy järkevämmin)
     books = []
     for item in items:
         book = f'{item[1]}, Author: {item[2]}, year: {item[3]}, ISBN: {item[4]}, Publisher: {item[5]}'
         books.append(book)
     return render_template("index.html", items=books)
 
+<<<<<<< HEAD
 =======
     return render_template("index.html", items=items) 
 >>>>>>> ff87799 (etusivulla näkyy lisätyt kirjat)
+=======
+>>>>>>> 767157d (Kirjat näkyy järkevämmin)
 
 
 @app.route('/books/new')
