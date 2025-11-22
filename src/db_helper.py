@@ -1,6 +1,6 @@
 from config import db, app
 from sqlalchemy import text
-import os
+from db import query
 
 def reset_db():
   print(f"Clearing contents from table todos")
@@ -44,6 +44,15 @@ def setup_db():
   db.session.execute(sql)
   db.session.commit()
 
+def get_items():
+    sql = text("SELECT * FROM items ORDER BY title ASC")
+    return db.session.execute(sql).fetchall()
+
+def get_item(item_id):
+    sql = text("SELECT items.id, items.title, items.writer, items.year, items.isbn, items.publisher FROM items WHERE items.id = :id ")
+    return db.session.execute(sql, {"id": item_id}).fetchone()
+
 if __name__ == "__main__":
     with app.app_context():
       setup_db()
+

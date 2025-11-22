@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Book</title>
+</head>
+
+<body>
+  <p>
+   <h1> {{item.title}}</h1>
+  </p>
+  
+  <p>
+    Kirja: {{item.title}}
+    Kirjailija: {{item.author}}
+    Julkaisuvuosi: {{item.year}}
+    ISBN: {{item.isbn}}
+    Kustantaja: {{item.publisher}}
+  </p>
+  <p>
+    <a href="/edit_item/{{item.id}}">Muokkaa</a>
+    <a href="/remove_item/{{item.id}}">Poista</a>
+  </p>
+</body>
+
+</html>

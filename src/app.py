@@ -7,6 +7,7 @@ from util import validate_todo
 import os
 from dotenv import load_dotenv
 from config import text
+import db_helper
 
 
 load_dotenv()
@@ -18,21 +19,8 @@ if not app.secret_key:
 @app.route("/")
 
 def index():
-    sql = text("SELECT * FROM items")
-    query = db.session.execute(sql)
-    items = query.fetchall()
-    books = []
-    for item in items:
-        book = f'{item[1]}, Author: {item[2]}, year: {item[3]}, ISBN: {item[4]}, Publisher: {item[5]}'
-        books.append(book)
-    return render_template("index.html", items=books)
-
-    books = []
-    for item in items:
-        book = f'{item[1]}, Author: {item[2]}, year: {item[3]}, ISBN: {item[4]}, Publisher: {item[5]}'
-        books.append(book)
-    return render_template("index.html", items=books)
-
+    items = db_helper.get_items()
+    return render_template("index.html", items=items)
 
 
 @app.route('/books/new')
@@ -64,3 +52,10 @@ def create_book():
     db.session.commit()
 
     return redirect('/')
+
+@app.route('/book/<int:item_id>')
+def book(item_id):
+
+    item = db_helper.get_item(item_id)
+
+    return render_template("/book.html", item=item)
