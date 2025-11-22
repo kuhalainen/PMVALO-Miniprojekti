@@ -3,23 +3,24 @@
 
 <head>
   <title>Book</title>
+  <link rel="stylesheet" href="/static/main.css">
 </head>
 
 <body>
   <p>
-   <h1> {{item.title}}</h1>
+   <h1 class="pink-title"> {{item.title}}</h1>
   </p>
   
-  <p>
-    Kirja: {{item.title}}
-    Kirjailija: {{item.author}}
-    Julkaisuvuosi: {{item.year}}
-    ISBN: {{item.isbn}}
-    Kustantaja: {{item.publisher}}
+  <p class="content">
+    Kirja: {{item.title}} <br/><br/>
+    Kirjailija: {{item.author}} <br/><br/>
+    Julkaisuvuosi: {{item.year}} <br/><br/>
+    ISBN: {{item.isbn}} <br/><br/>
+    Kustantaja: {{item.publisher}} <br/><br/>
   </p>
   <p>
-    <a href="/edit_item/{{item.id}}">Muokkaa</a>
-    <a href="/remove_item/{{item.id}}">Poista</a>
+    <a href="/edit_item/{{item.id}}" class="button">Muokkaa</a>
+    <a href="/remove_item/{{item.id}}" class="button">Poista</a>
   </p>
 </body>
 

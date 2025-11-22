@@ -1,0 +1,18 @@
+.content {
+  font-size: 20px
+}  
+
+.pink-title{
+  color: rgb(234, 79, 146)
+}
+
+.button {
+  background-color: rgb(234, 79, 146);
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 7px 7px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
