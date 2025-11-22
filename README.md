@@ -3,7 +3,13 @@
 
 
 ## Definition of done
-Vaatimus on analysoitu, suunniteltu, ohjelmoitu, testattu, testaus automatisoitu, dokumentoitu, integroitu muuhun ohjelmistoon
+1. Vaatimus on analysoitu
+2. Toteutus on suunniteltu ja jaettu tehtäviin
+3. Toteutus on ohjelmoitu
+4. Koodiin on luettu toisen henkilön toimesta
+4. Koodi on testattu robottitesteillä testattu
+5. Työ on dokumentoitu
+6. Laadittu koodi on integroitu muuhun ohjelmistoon
 
 # Käynnistysohjeet
 1. Kloonaa repositorio omalle laitteelle
