@@ -58,6 +58,7 @@ def create_book():
     })
     db.session.commit()
 
+    flash('Kirja lisätty onnistuneesti', 'success')
     return redirect('/')
 
 @app.route('/articles/create', methods=['POST'])
@@ -83,6 +84,7 @@ def create_article():
     })
     db.session.commit()
 
+    flash('Artikkeli lisätty onnistuneesti', 'success')
     return redirect('/')
 @app.route('/book/<int:item_id>')
 def book(item_id):
