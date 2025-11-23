@@ -1,6 +1,7 @@
 from config import db, app
 from sqlalchemy import text
 from db import query
+import os
 
 def reset_db():
   print(f"Clearing contents from table todos")
@@ -46,6 +47,10 @@ def setup_db():
 
 def get_items():
     sql = text("SELECT * FROM items ORDER BY title ASC")
+    return db.session.execute(sql).fetchall()
+
+def get_articles():
+    sql = text("SELECT * FROM articles ORDER BY title ASC")
     return db.session.execute(sql).fetchall()
 
 def get_item(item_id):

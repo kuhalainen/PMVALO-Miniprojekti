@@ -20,12 +20,19 @@ if not app.secret_key:
 
 def index():
     items = db_helper.get_items()
-    return render_template("index.html", items=items)
+    articles = db_helper.get_articles()
+
+    return render_template("index.html", items=items, articles = articles)
 
 
 @app.route('/books/new')
 def new_book():
     return render_template('book_form.html')
+
+
+@app.route('/articles/new')
+def new_article():
+    return render_template('article_form.html')
 
 
 @app.route('/books/create', methods=['POST'])
@@ -53,6 +60,30 @@ def create_book():
 
     return redirect('/')
 
+@app.route('/articles/create', methods=['POST'])
+def create_article():
+    title = request.form.get('title')
+    author = request.form.get('author')
+    year = request.form.get('year')
+    isbn = request.form.get('isbn')
+    journal = request.form.get('journal')
+
+    # Minimal validation: title and author required
+    if not title or not author:
+        flash('Title and author are required.', 'error')
+        return redirect('/books/new')
+    
+    sql = text("INSERT INTO articles (title, writer, year, isbn, journal) VALUES (:title, :writer, :year, :isbn, :journal)")
+    db.session.execute(sql, {
+       'title': title,
+       'writer': author,
+       'year': year,
+       'isbn': isbn,
+       'journal': journal
+    })
+    db.session.commit()
+
+    return redirect('/')
 @app.route('/book/<int:item_id>')
 def book(item_id):
 

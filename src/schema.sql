@@ -12,3 +12,12 @@ CREATE TABLE items (
     publisher TEXT,
     user_id INTEGER REFERENCES users(id) 
 );
+
+CREATE TABLE articles (
+    id SERIAL PRIMARY KEY,
+    title TEXT,
+    writer TEXT,
+    year TEXT,
+    isbn TEXT,
+    journal TEXT
+);

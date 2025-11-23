@@ -9,7 +9,10 @@
   <h1>Etusivu</h1>
   <p>
     <h2>Hello World!</h2>
-    <a href="/books/new">Lisää viite</a>
+    <a href="/books/new">Lisää kirja</a>
+  </p>
+  <p>
+    <a href="/articles/new">Lisää artikkeli</a>
   </p>
 
 
@@ -20,6 +23,19 @@
       ---------------------------------------------------------------------------------------------------<br />
       <a href="/book/{{item.id}}" style="font-size: 20px;">{{item.title}}</a><br />
       <p>{{item.writer}} {{item.year}} {{item.isbn}} {{item.publisher}}</p>
+      
+    </ul>
+    {%endfor%}
+
+  </p>
+
+  <h2>Lisätyt artikkelit</h2>
+  <p>
+    {%for article in articles%}
+    <ul>
+      ---------------------------------------------------------------------------------------------------<br />
+      <a>{{article.title}}</a><br />
+      <p>{{article.writer}} {{article.year}} {{article.isbn}} {{article.journal}}</p>
       
     </ul>
     {%endfor%}
