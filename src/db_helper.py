@@ -1,5 +1,6 @@
 from config import db, app
 from sqlalchemy import text
+import os
 from db import query
 import os
 
