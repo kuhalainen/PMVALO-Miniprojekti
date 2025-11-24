@@ -92,3 +92,9 @@ def book(item_id):
     item = db_helper.get_item(item_id)
 
     return render_template("/book.html", item=item)
+
+if test_env:
+    @app.route("/reset_db")
+    def reset_database():
+        reset_db()
+        return jsonify({ 'message': "db reset" })
