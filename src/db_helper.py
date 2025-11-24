@@ -58,6 +58,10 @@ def get_book(book_id):
     sql = text("SELECT books.id, books.title, books.writer, books.year, books.isbn, books.publisher FROM books WHERE books.id = :id ")
     return db.session.execute(sql, {"id": book_id}).fetchone()
 
+def get_article(article_id):
+    sql = text("SELECT articles.id, articles.title, articles.writer, articles.year, articles.doi, articles.journal FROM articles WHERE articles.id = :id ")
+    return db.session.execute(sql, {"id": article_id}).fetchone()
+
 if __name__ == "__main__":
     with app.app_context():
       setup_db()
