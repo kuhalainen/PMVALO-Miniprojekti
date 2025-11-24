@@ -17,7 +17,6 @@ if not app.secret_key:
     print("WARNING: Secret key not found. Check your .env file.")
 
 @app.route("/")
-
 def index():
     books = db_helper.get_books()
     countbooks = len(books)
@@ -95,10 +94,43 @@ def create_article():
 
 @app.route('/book/<int:book_id>')
 def book(book_id):
-
     book = db_helper.get_book(book_id)
 
     return render_template("/book.html", book=book)
+
+@app.route('/edit_book/<int:book_id>')
+def edit_book(book_id):
+    book = db_helper.get_book(book_id)
+
+    return render_template('edit_book.html', book=book)
+
+@app.route('/books/edit/<int:book_id>', methods=['POST'])
+def edit_book_post(book_id):
+    title = request.form.get('title')
+    author = request.form.get('author')
+    year = request.form.get('year')
+    isbn = request.form.get('isbn')
+    publisher = request.form.get('publisher')
+
+    # Minimal validation: title and author required
+    if not title or not author:
+        flash('Title and author are required.', 'error')
+        return redirect(f'/edit_book/{book_id}')
+
+    sql = text("UPDATE books SET title = :title, writer = :writer, year = :year, isbn = :isbn, publisher = :publisher WHERE id = :id")
+    print(book_id, title, author, year, isbn, publisher)
+    db.session.execute(sql, {
+       'title': title,
+       'writer': author,
+       'year': year,
+       'isbn': isbn,
+       'publisher': publisher,
+       'id': book_id
+    })
+    db.session.commit()
+
+    flash('Kirjan tiedot päivitetty onnistuneesti', 'success')
+    return redirect('/')
 
 @app.route('/article/<int:article_id>')
 def article(article_id):
