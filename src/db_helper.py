@@ -5,8 +5,8 @@ from db import query
 import os
 
 def reset_db():
-  print(f"Clearing contents from tables items and articles")
-  sql = text(f"DELETE FROM items, articles")
+  print(f"Clearing contents from tables books and articles")
+  sql = text(f"DELETE FROM books, articles")
   db.session.execute(sql)
   db.session.commit()
 
@@ -59,7 +59,9 @@ def get_book(book_id):
     return db.session.execute(sql, {"id": book_id}).fetchone()
 
 def get_article(article_id):
-    sql = text("SELECT articles.id, articles.title, articles.writer, articles.year, articles.journal FROM articles WHERE articles.id = :id ")
+
+    sql = text("SELECT articles.id, articles.title, articles.writer, articles.year, articles.doi, articles.journal FROM articles WHERE articles.id = :id ")
+
     return db.session.execute(sql, {"id": article_id}).fetchone()
 
 if __name__ == "__main__":

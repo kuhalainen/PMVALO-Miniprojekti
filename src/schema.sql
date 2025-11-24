@@ -3,7 +3,7 @@ CREATE TABLE users (
     name TEXT
 );
 
-CREATE TABLE items (
+CREATE TABLE books (
     id SERIAL PRIMARY KEY,
     title TEXT,
     writer TEXT,
@@ -18,6 +18,8 @@ CREATE TABLE articles (
     title TEXT,
     writer TEXT,
     year TEXT,
-    isbn TEXT,
-    journal TEXT
+    DOI TEXT,
+    journal TEXT,
+    volume TEXT,
+    pages TEXT
 );

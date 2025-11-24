@@ -48,7 +48,7 @@ def create_book():
         flash('Title and author are required.', 'error')
         return redirect('/books/new')
 
-    sql = text("INSERT INTO items (title, writer, year, isbn, publisher) VALUES (:title, :writer, :year, :isbn, :publisher)")
+    sql = text("INSERT INTO books (title, writer, year, isbn, publisher) VALUES (:title, :writer, :year, :isbn, :publisher)")
     db.session.execute(sql, {
        'title': title,
        'writer': author,
@@ -66,26 +66,31 @@ def create_article():
     title = request.form.get('title')
     author = request.form.get('author')
     year = request.form.get('year')
-    isbn = request.form.get('isbn')
+    doi = request.form.get('DOI')
     journal = request.form.get('journal')
+    volume = request.form.get('volume')
+    pages = request.form.get('pages')
 
     # Minimal validation: title and author required
     if not title or not author:
         flash('Title and author are required.', 'error')
         return redirect('/books/new')
     
-    sql = text("INSERT INTO articles (title, writer, year, isbn, journal) VALUES (:title, :writer, :year, :isbn, :journal)")
+    sql = text("INSERT INTO articles (title, writer, year, DOI, journal, volume, pages) VALUES (:title, :writer, :year, :DOI, :journal, :volume, :pages)")
     db.session.execute(sql, {
        'title': title,
        'writer': author,
        'year': year,
-       'isbn': isbn,
-       'journal': journal
+       'DOI': doi,
+       'journal': journal,
+       'volume': volume,
+       'pages': pages
     })
     db.session.commit()
 
     flash('Artikkeli lisätty onnistuneesti', 'success')
     return redirect('/')
+
 @app.route('/book/<int:book_id>')
 def book(book_id):
 
@@ -99,3 +104,10 @@ def article(article_id):
     article = db_helper.get_article(article_id)
 
     return render_template("/article.html", article=article)
+
+if test_env:
+    @app.route("/reset_db")
+    def reset_database():
+        reset_db()
+        return jsonify({ 'message': "db reset" })
+

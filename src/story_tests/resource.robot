@@ -6,6 +6,7 @@ Library  ../AppLibrary.py
 ${SERVER}        localhost:5001
 ${DELAY}         0.5 seconds
 ${HOME_URL}      http://${SERVER}
+${RESET_URL}     http://${SERVER}/reset_db
 ${BROWSER}       chrome
 ${HEADLESS}      false
 
@@ -28,3 +29,6 @@ Open And Configure Browser
 
 Go To Starting Page
     Go To  ${HOME_URL}
+
+Reset References
+    Go To  ${RESET_URL}

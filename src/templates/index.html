@@ -44,8 +44,9 @@
     {%for article in articles%}
     <ul>
       ---------------------------------------------------------------------------------------------------<br />
+
       <a href="/article/{{article.id}}" style="font-size: 20px;">{{article.title}}</a><br />
-      <p>{{article.writer}} {{article.year}} {{article.isbn}} {{article.journal}}</p>
+      <p>{{article.writer}} {{article.year}} {{article.DOI}} {{article.journal}} {{article.volume}} {{article.pages}}</p>
       
     </ul>
     {%endfor%}
