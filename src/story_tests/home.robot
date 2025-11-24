@@ -8,7 +8,7 @@ Test Setup      Reset Application And Go To Starting Page
 At start there are no references
     Go To  ${HOME_URL}
     Title Should Be  Etusivu
-    Page Should Contain  Lisätyt kirjat
+    References are reset
 
 
 Click Lisaa Viite
@@ -26,3 +26,7 @@ Main Page Should Be Open
 
 Lisää viite sivu Should Be Open
     Title Should Be  Lisää viite
+
+References are reset
+    Page Should Contain  Lisätyt kirjat: 0
+    Page Should Contain  Lisätyt artikkelit: 0
