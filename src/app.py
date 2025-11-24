@@ -65,8 +65,10 @@ def create_article():
     title = request.form.get('title')
     author = request.form.get('author')
     year = request.form.get('year')
-    isbn = request.form.get('isbn')
+    doi = request.form.get('DOI')
     journal = request.form.get('journal')
+    volume = request.form.get('volume')
+    pages = request.form.get('pages')
 
     # Minimal validation: title and author required
     if not title or not author:
@@ -78,7 +80,7 @@ def create_article():
        'title': title,
        'writer': author,
        'year': year,
-       'isbn': isbn,
+       'DOI': doi,
        'journal': journal
     })
     db.session.commit()
