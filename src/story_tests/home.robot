@@ -15,6 +15,10 @@ Click Lisaa Viite
     Click Link  Lisää kirja
     Lisää viite sivu Should Be Open
 
+Click Lisaa Artikkeli                
+    Click Link  Lisää artikkeli
+    Lisää artikkeli sivu Should Be Open
+
 *** Keywords ***
 
 Reset Application And Go To Starting Page
@@ -30,3 +34,6 @@ Lisää viite sivu Should Be Open
 References are reset
     Page Should Contain  Lisätyt kirjat: 0
     Page Should Contain  Lisätyt artikkelit: 0
+
+Lisää artikkeli sivu Should Be Open
+    Title Should Be  Lisää artikkeli
