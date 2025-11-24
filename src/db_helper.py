@@ -6,9 +6,10 @@ import os
 
 def reset_db():
   print(f"Clearing contents from tables books and articles")
-  sql = text(f"DELETE FROM books, articles")
-  db.session.execute(sql)
-  db.session.commit()
+  for t in tables():
+    sql = text(f"DELETE FROM {t}")
+    db.session.execute(sql)
+    db.session.commit()
 
 def tables():
   """Returns all table names from the database except those ending with _id_seq"""
