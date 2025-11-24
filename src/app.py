@@ -90,9 +90,16 @@ def create_article():
 
     flash('Artikkeli lisätty onnistuneesti', 'success')
     return redirect('/')
+
 @app.route('/book/<int:book_id>')
 def book(book_id):
 
     book = db_helper.get_book(book_id)
 
     return render_template("/book.html", book = book)
+
+if test_env:
+    @app.route("/reset_db")
+    def reset_database():
+        reset_db()
+        return jsonify({ 'message': "db reset" })
