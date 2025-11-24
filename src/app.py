@@ -20,9 +20,11 @@ if not app.secret_key:
 
 def index():
     books = db_helper.get_books()
+    countbooks = len(books)
     articles = db_helper.get_articles()
+    countarticles = len(articles)
 
-    return render_template("index.html", books=books, articles = articles)
+    return render_template("index.html", books=books, articles = articles, countbooks = countbooks, countarticles = countarticles)
 
 
 @app.route('/books/new')
