@@ -5,8 +5,8 @@ from db import query
 import os
 
 def reset_db():
-  print(f"Clearing contents from tables items and articles")
-  sql = text(f"DELETE FROM items, articles")
+  print(f"Clearing contents from tables books and articles")
+  sql = text(f"DELETE FROM books, articles")
   db.session.execute(sql)
   db.session.commit()
 
@@ -46,17 +46,17 @@ def setup_db():
   db.session.execute(sql)
   db.session.commit()
 
-def get_items():
-    sql = text("SELECT * FROM items ORDER BY title ASC")
+def get_books():
+    sql = text("SELECT * FROM books ORDER BY title ASC")
     return db.session.execute(sql).fetchall()
 
 def get_articles():
     sql = text("SELECT * FROM articles ORDER BY title ASC")
     return db.session.execute(sql).fetchall()
 
-def get_item(item_id):
-    sql = text("SELECT items.id, items.title, items.writer, items.year, items.isbn, items.publisher FROM items WHERE items.id = :id ")
-    return db.session.execute(sql, {"id": item_id}).fetchone()
+def get_book(book_id):
+    sql = text("SELECT books.id, books.title, books.writer, books.year, books.isbn, books.publisher FROM books WHERE books.id = :id ")
+    return db.session.execute(sql, {"id": book_id}).fetchone()
 
 def get_article(article_id):
     sql = text("SELECT articles.id, articles.title, articles.writer, articles.year, articles.doi, articles.journal FROM articles WHERE articles.id = :id ")

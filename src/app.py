@@ -19,10 +19,10 @@ if not app.secret_key:
 @app.route("/")
 
 def index():
-    items = db_helper.get_items()
+    books = db_helper.get_books()
     articles = db_helper.get_articles()
 
-    return render_template("index.html", items=items, articles = articles)
+    return render_template("index.html", books=books, articles = articles)
 
 
 @app.route('/books/new')
@@ -48,7 +48,7 @@ def create_book():
         flash('Title and author are required.', 'error')
         return redirect('/books/new')
 
-    sql = text("INSERT INTO items (title, writer, year, isbn, publisher) VALUES (:title, :writer, :year, :isbn, :publisher)")
+    sql = text("INSERT INTO books (title, writer, year, isbn, publisher) VALUES (:title, :writer, :year, :isbn, :publisher)")
     db.session.execute(sql, {
        'title': title,
        'writer': author,
@@ -66,35 +66,33 @@ def create_article():
     title = request.form.get('title')
     author = request.form.get('author')
     year = request.form.get('year')
-    isbn = request.form.get('isbn')
+    doi = request.form.get('DOI')
     journal = request.form.get('journal')
+    volume = request.form.get('volume')
+    pages = request.form.get('pages')
 
     # Minimal validation: title and author required
     if not title or not author:
         flash('Title and author are required.', 'error')
         return redirect('/books/new')
     
-    sql = text("INSERT INTO articles (title, writer, year, isbn, journal) VALUES (:title, :writer, :year, :isbn, :journal)")
+    sql = text("INSERT INTO articles (title, writer, year, DOI, journal, volume, pages) VALUES (:title, :writer, :year, :DOI, :journal, :volume, :pages)")
     db.session.execute(sql, {
        'title': title,
        'writer': author,
        'year': year,
-       'isbn': isbn,
-       'journal': journal
+       'DOI': doi,
+       'journal': journal,
+       'volume': volume,
+       'pages': pages
     })
     db.session.commit()
 
     flash('Artikkeli lisätty onnistuneesti', 'success')
     return redirect('/')
-@app.route('/book/<int:item_id>')
-def book(item_id):
+@app.route('/book/<int:book_id>')
+def book(book_id):
 
-    item = db_helper.get_item(item_id)
+    book = db_helper.get_book(book_id)
 
-    return render_template("/book.html", item=item)
-
-if test_env:
-    @app.route("/reset_db")
-    def reset_database():
-        reset_db()
-        return jsonify({ 'message': "db reset" })
+    return render_template("/book.html", book = book)
