@@ -19,10 +19,10 @@ if not app.secret_key:
 @app.route("/")
 
 def index():
-    items = db_helper.get_items()
+    books = db_helper.get_books()
     articles = db_helper.get_articles()
 
-    return render_template("index.html", items=items, articles = articles)
+    return render_template("index.html", books=books, articles = articles)
 
 
 @app.route('/books/new')
@@ -86,9 +86,16 @@ def create_article():
 
     flash('Artikkeli lisätty onnistuneesti', 'success')
     return redirect('/')
-@app.route('/book/<int:item_id>')
-def book(item_id):
+@app.route('/book/<int:book_id>')
+def book(book_id):
 
-    item = db_helper.get_item(item_id)
+    book = db_helper.get_book(book_id)
 
-    return render_template("/book.html", item=item)
+    return render_template("/book.html", book=book)
+
+@app.route('/article/<int:article_id>')
+def article(article_id):
+
+    article = db_helper.get_article(article_id)
+
+    return render_template("/article.html", article=article)

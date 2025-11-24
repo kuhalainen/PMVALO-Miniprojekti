@@ -28,11 +28,11 @@
 
   <h2>Lisätyt kirjat</h2>
   <p>
-    {%for item in items%}
+    {%for book in books%}
     <ul>
       ---------------------------------------------------------------------------------------------------<br />
-      <a href="/book/{{item.id}}" style="font-size: 20px;">{{item.title}}</a><br />
-      <p>{{item.writer}} {{item.year}} {{item.isbn}} {{item.publisher}}</p>
+      <a href="/book/{{book.id}}" style="font-size: 20px;">{{book.title}}</a><br />
+      <p>{{book.writer}} {{book.year}} {{book.isbn}} {{book.publisher}}</p>
       
     </ul>
     {%endfor%}
@@ -44,7 +44,7 @@
     {%for article in articles%}
     <ul>
       ---------------------------------------------------------------------------------------------------<br />
-      <a>{{article.title}}</a><br />
+      <a href="/article/{{article.id}}" style="font-size: 20px;">{{article.title}}</a><br />
       <p>{{article.writer}} {{article.year}} {{article.isbn}} {{article.journal}}</p>
       
     </ul>

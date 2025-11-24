@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Book</title>
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+  <p>
+   <h1 class="pink-title"> {{article.title}}</h1>
+  </p>
+  
+  <p class="content">
+    Artikkeli: {{article.title}} <br/><br/>
+    Kirjoittajat: {{article.author}} <br/><br/>
+    Julkaisuvuosi: {{article.year}} <br/><br/>
+    Lehti: {{article.journal}} <br/><br/>
+  </p>
+  <p>
+    <a href="/edit_item/{{article.id}}" class="button">Muokkaa</a>
+    <a href="/remove_item/{{article.id}}" class="button">Poista</a>
+  </p>
+</body>
+
+</html>
