@@ -19,6 +19,19 @@ Click Lisaa Artikkeli
     Click Link  Lisää artikkeli
     Lisää artikkeli sivu Should Be Open
 
+Click Home Link
+    Click Link  Lisää artikkeli
+    Lisää artikkeli sivu Should Be Open
+    Input Text  title  "Testititle"
+    Input Text  author  "Author"
+    Input Text  journal  "Journal"
+    Input Text  year  "2020"
+    Input Text  DOI  "1"     
+    Input Text  volume  "10"  
+    Input Text  pages  "110"
+    Click Button  Tallenna artikkeli
+    Main Page Should Be Open
+
 *** Keywords ***
 
 Reset Application And Go To Starting Page
