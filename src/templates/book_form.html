@@ -1,11 +1,11 @@
 <!doctype html>
 <html>
   <head>
-    <title>Lisää viite</title>
+    <title>Lisää kirja</title>
     <link rel="stylesheet" href="/static/main.css">
   </head>
   <body>
-    <h1>Lisää viite</h1>
+    <h1>Lisää kirja</h1>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -33,7 +33,7 @@
       <label for="publisher">Publisher</label>
       <input id="publisher" name="publisher" type="text">
 
-      <button type="submit">Tallenna viite</button>
+      <button type="submit">Tallenna kirja</button>
     </form>
     <p><a href="/">Takaisin etusivulle</a></p>
   </body>

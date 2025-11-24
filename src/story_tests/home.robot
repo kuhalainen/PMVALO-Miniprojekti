@@ -11,18 +11,28 @@ At start there are no references
     References are reset
 
 
-Click Lisaa Viite
+Click add book
     Click Link  Lisää kirja
-    Lisää viite sivu Should Be Open
+    Lisää kirja sivu Should Be Open
 
-Click Lisaa Artikkeli                
+Click add article             
     Click Link  Lisää artikkeli
     Lisää artikkeli sivu Should Be Open
 
-Click Home Link
+Submit book
+    Click Link  Lisää kirja
+    Lisää kirja sivu Should Be Open
+    Input Text  title  Testbook
+    Input Text  author  Author
+    Input Text  year  2020
+    Click Button  Tallenna kirja
+    Main Page Should Be Open
+    Page Should Contain  Testbook
+
+Submit article
     Click Link  Lisää artikkeli
     Lisää artikkeli sivu Should Be Open
-    Input Text  title  Testititle
+    Input Text  title  Testarticle
     Input Text  author  Author
     Input Text  journal  Journal
     Input Text  year  2020
@@ -31,7 +41,7 @@ Click Home Link
     Input Text  pages  110
     Click Button  Tallenna artikkeli
     Main Page Should Be Open
-    Page Should Contain  Testititle
+    Page Should Contain  Testarticle
 
 *** Keywords ***
 
@@ -41,6 +51,9 @@ Reset Application And Go To Starting Page
 
 Main Page Should Be Open
     Title Should Be  Etusivu
+
+Lisää kirja sivu Should Be Open
+    Title Should Be  Lisää kirja
 
 Lisää viite sivu Should Be Open
     Title Should Be  Lisää viite
