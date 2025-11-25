@@ -3,7 +3,7 @@ class UserInputError(Exception):
 
 def validate_book(title, author, year, isbn, publisher):
     
-    if year < 0:
+    if int(year) < 0:
           raise UserInputError("Error: ei voi olla negatiivinen.")
 
     if len(title) < 1 or len(title) > 20:  
