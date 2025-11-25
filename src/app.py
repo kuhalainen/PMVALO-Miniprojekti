@@ -1,12 +1,7 @@
-from flask import Flask, redirect, render_template, request, jsonify, flash
-from config import db
-from db_helper import reset_db
-from repositories.todo_repository import get_todos, create_todo, set_done
-from config import app, test_env
-from util import validate_todo
 import os
 from dotenv import load_dotenv
-from config import text
+from flask import redirect, render_template, request, jsonify, flash
+from config import text, db, app, test_env
 import db_helper
 
 
@@ -76,7 +71,7 @@ def create_article():
     if not title or not author:
         flash('Title and author are required.', 'error')
         return redirect('/books/new')
-    
+  
     sql = text("INSERT INTO articles (title, writer, year, DOI, journal, volume, pages) VALUES (:title, :writer, :year, :DOI, :journal, :volume, :pages)")
     db.session.execute(sql, {
        'title': title,
@@ -178,6 +173,5 @@ def edit_article_post(article_id):
 if test_env:
     @app.route("/reset_db")
     def reset_database():
-        reset_db()
+        db_helper.reset_db()
         return jsonify({ 'message': "db reset" })
-

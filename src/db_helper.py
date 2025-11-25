@@ -1,9 +1,9 @@
 from config import db, app
 from sqlalchemy import text
 import os
-from db import query
-import os
 
+
+# Utility functions for database management
 def reset_db():
   print(f"Clearing contents from tables books and articles")
   for t in tables():
@@ -19,7 +19,7 @@ def tables():
     "WHERE table_schema = 'public' "
     "AND table_name NOT LIKE '%_id_seq'"
   )
-  
+
   result = db.session.execute(sql)
   return [row[0] for row in result.fetchall()]
 
@@ -37,12 +37,12 @@ def setup_db():
     db.session.commit()
 
   print("Creating database")
-  
+
   # Read schema from schema.sql file
   schema_path = os.path.join(os.path.dirname(__file__), 'schema.sql')
   with open(schema_path, 'r') as f:
     schema_sql = f.read().strip()
-  
+
   sql = text(schema_sql)
   db.session.execute(sql)
   db.session.commit()
@@ -56,16 +56,17 @@ def get_articles():
     return db.session.execute(sql).fetchall()
 
 def get_book(book_id):
-    sql = text("SELECT books.id, books.title, books.writer, books.year, books.isbn, books.publisher FROM books WHERE books.id = :id ")
+    sql = text("SELECT books.id, books.title, books.writer, books.year, " \
+    "books.isbn, books.publisher FROM books WHERE books.id = :id ")
     return db.session.execute(sql, {"id": book_id}).fetchone()
 
 def get_article(article_id):
 
-    sql = text("SELECT articles.id, articles.title, articles.writer, articles.year, articles.doi, articles.journal, articles.volume, articles.pages FROM articles WHERE articles.id = :id ")
+    sql = text("SELECT articles.id, articles.title, articles.writer, articles.year," \
+    " articles.doi, articles.journal FROM articles WHERE articles.id = :id ")
 
     return db.session.execute(sql, {"id": article_id}).fetchone()
 
 if __name__ == "__main__":
     with app.app_context():
       setup_db()
-
