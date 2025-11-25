@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Konferenssinjulkaisun artikkelin poisto</title>
+  <h1 class="pink-title"> {{inproceeding.title}}</h1>
+</head>
+
+<body>
+  <h1>Konferenssinjulkaisun artikkelin poisto</h1>
+  <p>Artikkeli: {{ inproceeding.title }}</p>
+  <p>Haluatko varmasti poistaa tämän artikkelin?</p>
+  <form action="/remove_inproceeding/{{ inproceeding.id }}" method="post">
+    <input type="submit" name="remove" value="Poista ilmoitus">
+    <input type="submit" name="back" value="Palaa takaisin">
+  </form>
+</body>
+
+</html>
+nfe

@@ -13,6 +13,6 @@ class TestTodoValidation(unittest.TestCase):
         with self.assertRaises(UserInputError):
             validate_book("A" * 21, "author", 2020, "1234567890", "publisher")
 
-    def test_negative_year_raises_error(self):          
+    def test_negative_year_raises_error(self):
         with self.assertRaises(UserInputError):
             validate_book("Valid Title", "author", -1990, "1234567890", "publisher")

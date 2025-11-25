@@ -24,7 +24,9 @@
   <p>
     <a href="/articles/new">Lisää artikkeli</a>
   </p>
-
+  <p>
+    <a href="/inproceedings/new">Lisää Konferenssijulkaisun Artikkeli</a>
+  </p>
 
   <h2>Lisätyt kirjat: {{countbooks}}</h2>
   <p>
@@ -47,6 +49,21 @@
 
       <a href="/article/{{article.id}}" style="font-size: 20px;">{{article.title}}</a><br />
       <p>{{article.writer}} {{article.year}} {{article.DOI}} {{article.journal}} {{article.volume}} {{article.pages}}</p>
+      
+    </ul>
+    {%endfor%}
+
+  </p>
+
+
+  <h2>Lisätyt konferenssijulkaisujen artikkelit: {{countinproceedings}}</h2>
+  <p>
+    {%for inproceeding in inproceedings%}
+    <ul>
+      ---------------------------------------------------------------------------------------------------<br />
+
+      <a href="/inproceeding/{{inproceeding.id}}" style="font-size: 20px;">{{inproceeding.title}}</a><br />
+      <p>{{inproceeding.writer}} {{inproceeding.year}} {{inproceeding.booktitle}}</p>
       
     </ul>
     {%endfor%}

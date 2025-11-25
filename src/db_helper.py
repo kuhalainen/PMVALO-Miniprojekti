@@ -55,6 +55,10 @@ def get_articles():
     sql = text("SELECT * FROM articles ORDER BY title ASC")
     return db.session.execute(sql).fetchall()
 
+def get_inproceedings():
+    sql = text("SELECT * FROM inproceedings ORDER BY title ASC")
+    return db.session.execute(sql).fetchall()
+
 def get_book(book_id):
     sql = text("SELECT books.id, books.title, books.writer, books.year, " \
     "books.isbn, books.publisher FROM books WHERE books.id = :id ")
@@ -67,6 +71,13 @@ def get_article(article_id):
 
     return db.session.execute(sql, {"id": article_id}).fetchone()
 
+def get_inproceeding(inproceedings_id):
+
+    sql = text("SELECT inproceedings.id, inproceedings.title, inproceedings.writer, inproceedings.year," \
+    " inproceedings.booktitle FROM inproceedings WHERE inproceedings.id = :id ")
+
+    return db.session.execute(sql, {"id": inproceedings_id}).fetchone()
+
 def delete_book(book_id):
     sql = text("DELETE FROM books WHERE id = :id")
     db.session.execute(sql, {'id': book_id})
@@ -76,6 +87,12 @@ def delete_article(article_id):
     sql = text("DELETE FROM articles WHERE id = :id")
     db.session.execute(sql, {'id': article_id})
     db.session.commit()
+
+def delete_inproceeding(inproceeding_id):
+    sql = text("DELETE FROM inproceedings WHERE id = :id")
+    db.session.execute(sql, {'id': inproceeding_id})
+    db.session.commit()
+
 
 if __name__ == "__main__":
     with app.app_context():
