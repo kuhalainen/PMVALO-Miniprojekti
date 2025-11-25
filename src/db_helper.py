@@ -67,6 +67,16 @@ def get_article(article_id):
 
     return db.session.execute(sql, {"id": article_id}).fetchone()
 
+def delete_book(book_id):
+    sql = text("DELETE FROM books WHERE id = :id")
+    db.session.execute(sql, {'id': book_id})
+    db.session.commit()
+
+def delete_article(article_id):
+    sql = text("DELETE FROM articles WHERE id = :id")
+    db.session.execute(sql, {'id': article_id})
+    db.session.commit()
+
 if __name__ == "__main__":
     with app.app_context():
         setup_db()

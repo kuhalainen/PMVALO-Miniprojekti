@@ -141,6 +141,19 @@ def edit_book_post(book_id):
     flash('Kirjan tiedot päivitetty onnistuneesti', 'success')
     return redirect('/')
 
+@app.route('/remove_book/<int:book_id>', methods=['GET', 'POST'])
+def remove_book(book_id):
+    book = db_helper.get_book(book_id)
+
+    if request.method == 'GET':
+        return render_template('remove_book.html', book=book)
+    if request.method == 'POST':
+        if "remove" in request.form:
+            db_helper.delete_book(book_id)
+            flash('Kirja poistettu onnistuneesti', 'success')
+            return redirect('/')
+        return redirect('/book/' + str(book_id))
+
 @app.route('/article/<int:article_id>')
 def article(article_id):
     current_article = db_helper.get_article(article_id)
@@ -186,6 +199,19 @@ def edit_article_post(article_id):
     flash('Artikkelin tiedot päivitetty onnistuneesti', 'success')
     return redirect('/')
 
+
+@app.route('/remove_article/<int:article_id>', methods=['GET', 'POST'])
+def remove_article(article_id):
+    article = db_helper.get_article(article_id)
+
+    if request.method == 'GET':
+        return render_template('remove_article.html', article=article)
+    if request.method == 'POST':
+        if "remove" in request.form:
+            db_helper.delete_article(article_id)
+            flash('Artikkeli poistettu onnistuneesti', 'success')
+            return redirect('/')
+        return redirect('/article/' + str(article_id))
 if test_env:
     @app.route("/reset_db")
     def reset_database():
