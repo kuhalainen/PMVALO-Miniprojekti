@@ -13,13 +13,17 @@
   
   <p class="content">
     Artikkeli: {{article.title}} <br/><br/>
-    Kirjoittajat: {{article.author}} <br/><br/>
+    Kirjoittajat: {{article.writer}} <br/><br/>
     Julkaisuvuosi: {{article.year}} <br/><br/>
     Lehti: {{article.journal}} <br/><br/>
+    Volume: {{article.volume}} <br/><br/>
+    Pages: {{article.pages}} <br/><br/>
   </p>
   <p>
-    <a href="/edit_item/{{article.id}}" class="button">Muokkaa</a>
-    <a href="/remove_item/{{article.id}}" class="button">Poista</a>
+    <a href="/edit_article/{{article.id}}" class="button">Muokkaa</a>
+    <a href="/remove_article/{{article.id}}" class="button">Poista</a>
+    <a href="/" class="button">Palaa etusivulle</a>
+    
   </p>
 </body>
 

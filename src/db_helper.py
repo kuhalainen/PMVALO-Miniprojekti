@@ -61,7 +61,7 @@ def get_book(book_id):
 
 def get_article(article_id):
 
-    sql = text("SELECT articles.id, articles.title, articles.writer, articles.year, articles.doi, articles.journal FROM articles WHERE articles.id = :id ")
+    sql = text("SELECT articles.id, articles.title, articles.writer, articles.year, articles.doi, articles.journal, articles.volume, articles.pages FROM articles WHERE articles.id = :id ")
 
     return db.session.execute(sql, {"id": article_id}).fetchone()
 

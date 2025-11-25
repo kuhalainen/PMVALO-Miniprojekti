@@ -118,7 +118,6 @@ def edit_book_post(book_id):
         return redirect(f'/edit_book/{book_id}')
 
     sql = text("UPDATE books SET title = :title, writer = :writer, year = :year, isbn = :isbn, publisher = :publisher WHERE id = :id")
-    print(book_id, title, author, year, isbn, publisher)
     db.session.execute(sql, {
        'title': title,
        'writer': author,
@@ -138,6 +137,43 @@ def article(article_id):
     article = db_helper.get_article(article_id)
 
     return render_template("/article.html", article=article)
+
+@app.route('/edit_article/<int:article_id>')
+def edit_article(article_id):
+    article = db_helper.get_article(article_id)
+
+    return render_template('edit_article.html', article=article)
+
+@app.route('/articles/edit/<int:article_id>', methods=['POST'])
+def edit_article_post(article_id):
+    title = request.form.get('title')
+    author = request.form.get('author')
+    year = request.form.get('year')
+    doi = request.form.get('DOI')
+    journal = request.form.get('journal')
+    volume = request.form.get('volume')
+    pages = request.form.get('pages')
+
+    # Minimal validation: title and author required
+    if not title or not author:
+        flash('Title and author are required.', 'error')
+        return redirect(f'/edit_article/{article_id}')
+
+    sql = text("UPDATE articles SET title = :title, writer = :writer, year = :year, DOI = :doi, journal = :journal, volume = :volume, pages = :pages WHERE id = :id")
+    db.session.execute(sql, {
+       'title': title,
+       'writer': author,
+       'year': year,
+       'doi': doi,
+       'journal': journal,
+       'volume' : volume,
+       'pages' : pages,
+       'id': article_id
+    })
+    db.session.commit()
+
+    flash('Artikkelin tiedot päivitetty onnistuneesti', 'success')
+    return redirect('/')
 
 if test_env:
     @app.route("/reset_db")
