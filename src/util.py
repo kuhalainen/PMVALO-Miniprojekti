@@ -1,9 +1,10 @@
 class UserInputError(Exception):
     pass
 
-def validate_todo(content):
-    if len(content) < 5:
-        raise UserInputError("Todo content length must be greater than 4")
+def validate_book(title, author, year, isbn, publisher):
+    
+    if year < 0:
+          raise UserInputError("Error: ei voi olla negatiivinen.")
 
-    if len(content) > 100:
-          raise UserInputError("Todo content length must be smaller than 100")
+    if len(title) < 1 or len(title) > 20:  
+        raise UserInputError("Error: Title must be between 5 and 200 characters long.")
