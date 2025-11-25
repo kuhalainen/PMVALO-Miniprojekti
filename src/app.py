@@ -1,7 +1,4 @@
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 from flask import Flask, redirect, render_template, request, jsonify, flash
 from config import db
 from db_helper import reset_db
