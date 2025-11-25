@@ -18,7 +18,8 @@ def index():
     articles = db_helper.get_articles()
     countarticles = len(articles)
 
-    return render_template("index.html", books=books, articles = articles, countbooks = countbooks, countarticles = countarticles)
+    return render_template("index.html", books=books, articles = articles,
+                            countbooks = countbooks, countarticles = countarticles)
 
 
 @app.route('/books/new')
@@ -44,7 +45,8 @@ def create_book():
         flash('Title and author are required.', 'error')
         return redirect('/books/new')
 
-    sql = text("INSERT INTO books (title, writer, year, isbn, publisher) VALUES (:title, :writer, :year, :isbn, :publisher)")
+    sql = text("INSERT INTO books (title, writer, year, isbn," \
+    " publisher) VALUES (:title, :writer, :year, :isbn, :publisher)")
     db.session.execute(sql, {
        'title': title,
        'writer': author,
@@ -71,8 +73,9 @@ def create_article():
     if not title or not author:
         flash('Title and author are required.', 'error')
         return redirect('/books/new')
-  
-    sql = text("INSERT INTO articles (title, writer, year, DOI, journal, volume, pages) VALUES (:title, :writer, :year, :DOI, :journal, :volume, :pages)")
+
+    sql = text("INSERT INTO articles (title, writer, year, DOI," \
+    " journal, volume, pages) VALUES (:title, :writer, :year, :DOI, :journal, :volume, :pages)")
     db.session.execute(sql, {
        'title': title,
        'writer': author,
@@ -89,15 +92,15 @@ def create_article():
 
 @app.route('/book/<int:book_id>')
 def book(book_id):
-    book = db_helper.get_book(book_id)
+    current_book = db_helper.get_book(book_id)
 
-    return render_template("/book.html", book=book)
+    return render_template("/book.html", book=current_book)
 
 @app.route('/edit_book/<int:book_id>')
 def edit_book(book_id):
-    book = db_helper.get_book(book_id)
+    current_book = db_helper.get_book(book_id)
 
-    return render_template('edit_book.html', book=book)
+    return render_template('edit_book.html', book=current_book)
 
 @app.route('/books/edit/<int:book_id>', methods=['POST'])
 def edit_book_post(book_id):
@@ -112,7 +115,8 @@ def edit_book_post(book_id):
         flash('Title and author are required.', 'error')
         return redirect(f'/edit_book/{book_id}')
 
-    sql = text("UPDATE books SET title = :title, writer = :writer, year = :year, isbn = :isbn, publisher = :publisher WHERE id = :id")
+    sql = text("UPDATE books SET title = :title, writer = :writer," \
+    " year = :year, isbn = :isbn, publisher = :publisher WHERE id = :id")
     db.session.execute(sql, {
        'title': title,
        'writer': author,
@@ -128,16 +132,15 @@ def edit_book_post(book_id):
 
 @app.route('/article/<int:article_id>')
 def article(article_id):
+    current_article = db_helper.get_article(article_id)
 
-    article = db_helper.get_article(article_id)
-
-    return render_template("/article.html", article=article)
+    return render_template("/article.html", article=current_article)
 
 @app.route('/edit_article/<int:article_id>')
 def edit_article(article_id):
-    article = db_helper.get_article(article_id)
+    current_article = db_helper.get_article(article_id)
 
-    return render_template('edit_article.html', article=article)
+    return render_template('edit_article.html', article=current_article)
 
 @app.route('/articles/edit/<int:article_id>', methods=['POST'])
 def edit_article_post(article_id):
@@ -154,7 +157,9 @@ def edit_article_post(article_id):
         flash('Title and author are required.', 'error')
         return redirect(f'/edit_article/{article_id}')
 
-    sql = text("UPDATE articles SET title = :title, writer = :writer, year = :year, DOI = :doi, journal = :journal, volume = :volume, pages = :pages WHERE id = :id")
+    sql = text("UPDATE articles SET title = :title, writer = :writer," \
+    " year = :year, DOI = :doi, journal = :journal, volume = :volume," \
+    " pages = :pages WHERE id = :id")
     db.session.execute(sql, {
        'title': title,
        'writer': author,
