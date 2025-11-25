@@ -37,7 +37,9 @@ jobs:
       - name: Install Poetry
         run: pip install poetry
       - name: Install dependencies
-        run: poetry install        
+        run: poetry install
+      - name: Enter venv
+        run: eval $(poetry env activate)       
       - name: Run unit tests
         run: pytest src
       - name: Setup chromedriver
