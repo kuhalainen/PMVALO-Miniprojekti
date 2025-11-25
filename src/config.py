@@ -2,6 +2,7 @@ from os import getenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
+from sqlalchemy import text
 
 load_dotenv()
 
