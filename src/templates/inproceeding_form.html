@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Lisää Konferenssijulkaisun artikkeli</title>
+    <link rel="stylesheet" href="/static/main.css">
+  </head>
+  <body>
+    <h1>Lisää Konferenssijulkaisun artikkeli</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="post" action="/inproceedings/create">
+      <label for="title">Title</label>
+      <input id="title" name="title" type="text" required>
+
+      <label for="booktitle">Booktitle</label>
+      <input id="booktitle" name="booktitle" type="text">
+
+      <label for="author">Author</label>
+      <input id="author" name="author" type="text" required>
+
+      <label for="year">Year</label>
+      <input id="year" name="year" type="number" inputmode="numeric" pattern="[0-9]{4}">
+
+      <button type="submit">Tallenna Konferenssijulkaisun artikkeli</button>
+    </form>
+    <p><a href="/">Takaisin etusivulle</a></p>
+  </body>
+</html>

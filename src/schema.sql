@@ -23,3 +23,11 @@ CREATE TABLE articles (
     volume TEXT,
     pages TEXT
 );
+
+CREATE TABLE inproceedings (
+    id SERIAL PRIMARY KEY,
+    title TEXT,
+    writer TEXT,
+    year TEXT,
+    booktitle TEXT
+);

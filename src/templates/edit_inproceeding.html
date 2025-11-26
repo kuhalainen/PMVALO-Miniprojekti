@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Muokkaa viitettä</title>
+    <link rel="stylesheet" href="/static/main.css">
+  </head>
+  <body>
+    <h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="post" action="/inproceedings/edit/{{ inproceeding.id }}">
+      <label for="title">Title</label>
+      <input id="title" name="title" type="text" value="{{ inproceeding.title }}" required>
+
+      <label for="author">Author</label>
+      <input id="author" name="author" type="text" value="{{ inproceeding.writer }}" required>
+
+      <label for="year">Year</label>
+      <input id="year" name="year" type="number" value="{{ inproceeding.year }}" inputmode="numeric" pattern="[0-9]{4}">
+
+      <label for="booktitle">Booktitle</label>
+      <input id="booktitle" name="booktitle" type="text" value="{{ inproceeding.booktitle }}">
+
+      <button type="submit">Tallenna muutokset</button>
+    </form>
+    <p><a href="/inproceeding/{{ inproceeding.id }}">Takaisin konferenssinjulkaisun artikkelin sivulle</a></p>
+  </body>
+</html>

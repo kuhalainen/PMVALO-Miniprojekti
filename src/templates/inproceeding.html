@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Inproceedings</title>
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+  <p>
+   <h1 class="pink-title"> {{inproceeding.title}}</h1>
+  </p>
+  
+  <p class="content">
+    Title: {{inproceeding.title}} <br/><br/>
+    Author: {{inproceeding.writer}} <br/><br/>
+    Year: {{inproceeding.year}} <br/><br/>
+    Booktitle: {{inproceeding.booktitle}} <br/><br/>
+  </p>
+  <p>
+    <a href="/edit_inproceeding/{{inproceeding.id}}" class="button">Muokkaa</a>
+    <a href="/remove_inproceeding/{{inproceeding.id}}" class="button">Poista</a>
+    <a href="/" class="button">Palaa etusivulle</a>
+    
+  </p>
+</body>
+
+</html>

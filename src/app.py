@@ -24,20 +24,23 @@ def index():
     countbooks = len(books)
     articles = db_helper.get_articles()
     countarticles = len(articles)
-
+    inproceedings = db_helper.get_inproceedings()
+    countinproceedings = len(inproceedings)
     return render_template("index.html", books=books, articles = articles,
-                            countbooks = countbooks, countarticles = countarticles)
-
+                            countbooks = countbooks, countarticles = countarticles,
+                            inproceedings = inproceedings, countinproceedings = countinproceedings)
 
 @app.route('/books/new')
 def new_book():
     return render_template('book_form.html')
 
-
 @app.route('/articles/new')
 def new_article():
     return render_template('article_form.html')
 
+@app.route('/inproceedings/new')
+def new_inproceeding():
+    return render_template('inproceeding_form.html')
 
 @app.route('/books/create', methods=['POST'])
 def create_book():
@@ -97,6 +100,31 @@ def create_article():
     db.session.commit()
 
     flash('Artikkeli lisätty onnistuneesti', 'success')
+    return redirect('/')
+
+@app.route('/inproceedings/create', methods=['POST'])
+def create_inproceeding():
+    title = request.form.get('title')
+    author = request.form.get('author')
+    year = request.form.get('year')
+    booktitle = request.form.get('booktitle')
+
+    # Minimal validation: title and author required
+    if not title or not author:
+        flash('Title and author are required.', 'error')
+        return redirect('/inproceedings/new')
+
+    sql = text("INSERT INTO inproceedings (title, writer, year, booktitle)" \
+    "VALUES (:title, :writer, :year, :booktitle)")
+    db.session.execute(sql, {
+       'title': title,
+       'writer': author,
+       'year': year,
+       'booktitle': booktitle,
+    })
+    db.session.commit()
+
+    flash('Konferenssijulkaisun Artikkeli lisätty onnistuneesti', 'success')
     return redirect('/')
 
 @app.route('/book/<int:book_id>')
@@ -210,6 +238,58 @@ def remove_article(article_id):
             flash('Artikkeli poistettu onnistuneesti', 'success')
             return redirect('/')
         return redirect('/article/' + str(article_id))
+
+@app.route('/inproceeding/<int:inproceeding_id>')
+def inproceeding(inproceeding_id):
+    current_inproceeding = db_helper.get_inproceeding(inproceeding_id)
+
+    return render_template("/inproceeding.html", inproceeding=current_inproceeding)
+
+@app.route('/edit_inproceeding/<int:inproceeding_id>')
+def edit_inproceeding(inproceeding_id):
+    current_inproceeding = db_helper.get_inproceeding(inproceeding_id)
+
+    return render_template('edit_inproceeding.html', inproceeding=current_inproceeding)
+
+@app.route('/inproceedings/edit/<int:inproceeding_id>', methods=['POST'])
+def edit_inproceeding_post(inproceeding_id):
+    title = request.form.get('title')
+    author = request.form.get('author')
+    year = request.form.get('year')
+    booktitle = request.form.get('booktitle')
+
+    # Minimal validation: title and author required
+    if not title or not author:
+        flash('Title and author are required.', 'error')
+        return redirect(f'/edit_inproceeding/{inproceeding_id}')
+
+    sql = text("UPDATE inproceedings SET title = :title, writer = :writer," \
+    " year = :year, booktitle = :booktitle WHERE id = :id")
+    db.session.execute(sql, {
+       'title': title,
+       'writer': author,
+       'year': year,
+       'booktitle': booktitle,
+       'id': inproceeding_id
+    })
+    db.session.commit()
+
+    flash('Konferenssijulkaisun artikkelin tiedot päivitetty onnistuneesti', 'success')
+    return redirect('/')
+
+@app.route('/remove_inproceeding/<int:inproceeding_id>', methods=['GET', 'POST'])
+def remove_inproceeding(inproceeding_id):
+    inproceeding = db_helper.get_inproceeding(inproceeding_id)
+
+    if request.method == 'GET':
+        return render_template('remove_inproceeding.html', inproceeding=inproceeding)
+    if request.method == 'POST':
+        if "remove" in request.form:
+            db_helper.delete_inproceeding(inproceeding_id)
+            flash('Konferenssijulkaisun artikkeli poistettu onnistuneesti', 'success')
+            return redirect('/')
+        return redirect('/inproceeding/' + str(inproceeding_id))
+
 if test_env:
     @app.route("/reset_db")
     def reset_database():
