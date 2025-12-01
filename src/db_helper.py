@@ -48,15 +48,34 @@ def setup_db():
     db.session.commit()
 
 def get_books():
-    sql = text("SELECT * FROM books ORDER BY title ASC")
+    sql = text("SELECT books.id AS id, " \
+        "books.title AS title, " \
+        "books.writer AS writer, " \
+        "books.year AS year, " \
+        "books.isbn AS isbn, " \
+        "books.publisher AS publisher, " \
+        "'book' AS type FROM books ")
     return db.session.execute(sql).fetchall()
 
 def get_articles():
-    sql = text("SELECT * FROM articles ORDER BY title ASC")
+    sql = text("SELECT articles.id AS id, " \
+        "articles.title AS title, " \
+        "articles.writer AS writer, " \
+        "articles.year AS year, " \
+        "articles.doi AS doi, " \
+        "articles.journal AS journal, " \
+        "articles.volume AS volume, " \
+        "articles.pages AS pages, " \
+        "'article' AS type FROM articles ORDER BY title ASC")
     return db.session.execute(sql).fetchall()
 
 def get_inproceedings():
-    sql = text("SELECT * FROM inproceedings ORDER BY title ASC")
+    sql = text("SELECT inproceedings.id AS id, " \
+        "inproceedings.title AS title, " \
+        "inproceedings.writer AS writer, " \
+        "inproceedings.year AS year, " \
+        "inproceedings.booktitle AS booktitle, " \
+        "'inproceeding' AS type FROM inproceedings ORDER BY title ASC")
     return db.session.execute(sql).fetchall()
 
 def get_book(book_id):
@@ -77,6 +96,29 @@ def get_inproceeding(inproceedings_id):
     " inproceedings.booktitle FROM inproceedings WHERE inproceedings.id = :id ")
 
     return db.session.execute(sql, {"id": inproceedings_id}).fetchone()
+
+def get_all_references():
+    sql = text(
+        "SELECT books.id AS id, " \
+        "books.title AS title, " \
+        "books.writer AS writer, " \
+        "books.year AS year, "
+        "'book' AS type FROM books "
+        "UNION "
+        "SELECT articles.id AS id, " \
+        "articles.title AS title, " \
+        "articles.writer AS writer, " \
+        "articles.year AS year, "
+        "'article' AS type FROM articles "
+        "UNION "
+        "SELECT inproceedings.id AS id, " \
+        "inproceedings.title AS title, " \
+        "inproceedings.writer AS writer, " \
+        "inproceedings.year AS year, "
+        "'inproceeding' AS type FROM inproceedings "
+        "ORDER BY title ASC"
+    )
+    return db.session.execute(sql).fetchall()
 
 def delete_book(book_id):
     sql = text("DELETE FROM books WHERE id = :id")

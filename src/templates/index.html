@@ -34,46 +34,25 @@
     <a href="/download_bibtex" class="button">Lataa bibtex tiedosto</a>
   </p>
 
-  <h2>Lisätyt kirjat: {{countbooks}}</h2>
+  <h2>Lisätyt viitteet: {{ countitems }}</h2>
+
+  <form method="get" action="/">
+    <select name="category" onchange="this.form.submit()">
+        <option value="all"     {{ "selected" if selected == "all" else "" }}>Näytä kaikki</option>
+        <option value="books" {{ "selected" if selected == "books" else "" }}>Näytä kirjat</option>
+        <option value="articles" {{ "selected" if selected == "articles" else "" }}>Näytä artikkelit</option>
+        <option value="inproceedings" {{ "selected" if selected == "inproceedings" else "" }}>Näytä konferenssijulkaisujen artikkelit</option>
+    </select>
+  </form>
+
   <p>
-    {%for book in books%}
+    {%for item in items%}
     <ul>
       ---------------------------------------------------------------------------------------------------<br />
-      <a href="/book/{{book.id}}" style="font-size: 20px;">{{book.title}}</a><br />
-      <p>{{book.writer}} {{book.year}} {{book.isbn}} {{book.publisher}}</p>
-      
+      <a href="/{{item.type}}/{{item.id}}" style="font-size: 20px;">{{item.title}}</a><br />
+      <p>{{item.writer}} {{item.year}}</p>
     </ul>
     {%endfor%}
-
-  </p>
-
-  <h2>Lisätyt artikkelit: {{countarticles}}</h2>
-  <p>
-    {%for article in articles%}
-    <ul>
-      ---------------------------------------------------------------------------------------------------<br />
-
-      <a href="/article/{{article.id}}" style="font-size: 20px;">{{article.title}}</a><br />
-      <p>{{article.writer}} {{article.year}} {{article.DOI}} {{article.journal}} {{article.volume}} {{article.pages}}</p>
-      
-    </ul>
-    {%endfor%}
-
-  </p>
-
-
-  <h2>Lisätyt konferenssijulkaisujen artikkelit: {{countinproceedings}}</h2>
-  <p>
-    {%for inproceeding in inproceedings%}
-    <ul>
-      ---------------------------------------------------------------------------------------------------<br />
-
-      <a href="/inproceeding/{{inproceeding.id}}" style="font-size: 20px;">{{inproceeding.title}}</a><br />
-      <p>{{inproceeding.writer}} {{inproceeding.year}} {{inproceeding.booktitle}}</p>
-      
-    </ul>
-    {%endfor%}
-
   </p>
 </body>
 
