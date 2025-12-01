@@ -3,7 +3,7 @@
 
 <head>
   <title>Kirjan poisto</title>
-  <h1 class="pink-title"> {{book.title}}</h1>
+  <link rel="stylesheet" href="/static/main.css">
 </head>
 
 <body>
@@ -11,8 +11,8 @@
   <p>Kirja: {{ book.title }}</p>
   <p>Haluatko varmasti poistaa tämän kirjan?</p>
   <form action="/remove_book/{{ book.id }}" method="post">
-    <input type="submit" name="remove" value="Poista ilmoitus">
-    <input type="submit" name="back" value="Palaa takaisin">
+    <input type="submit" name="remove" class="button" value="Poista ilmoitus">
+    <input type="submit" name="back" class="button" value="Palaa takaisin">
   </form>
 </body>
 

@@ -3,6 +3,7 @@
 
 <head>
   <title>Etusivu</title>
+  <link rel="stylesheet" href="/static/main.css">
 </head>
 
 <body>
@@ -19,18 +20,18 @@
   {% endwith %}
 
   <p>
-    <a href="/books/new">Lisää kirja</a>
+    <a href="/books/new" class="button">Lisää kirja</a>
   </p>
   <p>
-    <a href="/articles/new">Lisää artikkeli</a>
+    <a href="/articles/new" class="button">Lisää artikkeli</a>
   </p>
   <p>
-    <a href="/inproceedings/new">Lisää Konferenssijulkaisun Artikkeli</a>
+    <a href="/inproceedings/new" class="button">Lisää Konferenssijulkaisun Artikkeli</a>
   </p>
 
   <p>
-    <a href="/inspect_bibtex">Katsele bibtex tiedostoa</a>
-    <a href="/download_bibtex">Lataa bibtex tiedosto</a>
+    <a href="/inspect_bibtex" class="button">Katsele bibtex tiedostoa</a>
+    <a href="/download_bibtex" class="button">Lataa bibtex tiedosto</a>
   </p>
 
   <h2>Lisätyt kirjat: {{countbooks}}</h2>

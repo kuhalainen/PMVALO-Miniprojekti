@@ -1,14 +1,14 @@
 .content {
-  font-size: 20px
+  font-size: 15px
 }  
 
-.pink-title{
-  color: rgb(234, 79, 146)
+.title{
+  color: rgb(10, 60, 100)
 }
 
 .button {
-  background-color: rgb(234, 79, 146);
-  color: rgb(0, 0, 0);
+  background-color: rgb(130, 194, 246);
+  color: rgb(10, 60, 100);
   border: none;
   padding: 7px 7px;
   border-radius: 8px;
@@ -19,11 +19,21 @@
 
 body { 
   font-family: Arial, sans-serif;
-  max-width: 700px; 
-  margin: 2rem auto; 
-  padding: 0 1rem; 
+  max-width: 1400px; 
+  margin: 1rem auto; 
+  padding: 0 1rem;
+  font-size: 20px;
+  color: rgb(10,60,100);
+  background-color: rgb(194, 224, 249);
 }
 
+h1 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 20px;
+}
 
 label { 
   display:block; 

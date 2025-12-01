@@ -11,8 +11,8 @@
   <p>Artikkeli: {{ article.title }}</p>
   <p>Haluatko varmasti poistaa tämän artikkelin?</p>
   <form action="/remove_article/{{ article.id }}" method="post">
-    <input type="submit" name="remove" value="Poista ilmoitus">
-    <input type="submit" name="back" value="Palaa takaisin">
+    <input type="submit" name="remove" class="button" value="Poista ilmoitus">
+    <input type="submit" name="back" class="button" value="Palaa takaisin">
   </form>
 </body>
 
