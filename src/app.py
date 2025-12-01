@@ -1,5 +1,6 @@
 
-from flask import Flask, redirect, render_template, request, jsonify, flash
+from flask import Flask, redirect, render_template, request, jsonify, flash, send_file
+import io
 from config import db
 from db_helper import reset_db
 from repositories.todo_repository import get_todos, create_todo, set_done
@@ -291,11 +292,31 @@ def remove_inproceeding(inproceeding_id):
             return redirect('/')
         return redirect('/inproceeding/' + str(inproceeding_id))
     
-@app.route('/bibtex')
-def generate_bibtex():
-    gen_bibtex()
-    with open('library.bib') as file:
-        teksti = file.text()
+@app.route('/inspect_bibtex')
+def inspect_bibtex():
+    content = gen_bibtex()
+
+    proxy_file = io.BytesIO(content.encode('utf-8'))
+    
+    return send_file(
+        proxy_file,
+        mimetype='text/x-bibtex',
+        as_attachment=False,
+        download_name='references.bib'
+    )
+
+@app.route('/download_bibtex')
+def download_bibtex():
+    content = gen_bibtex()
+
+    proxy_file = io.BytesIO(content.encode('utf-8'))
+    
+    return send_file(
+        proxy_file,
+        mimetype='text/x-bibtex',
+        as_attachment=True,
+        download_name='references.bib'
+    )
 
 if test_env:
     @app.route("/reset_db")

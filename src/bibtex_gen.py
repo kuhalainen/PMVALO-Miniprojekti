@@ -1,8 +1,8 @@
-import bibtexparser
 from bibtexparser.bwriter import BibTexWriter
 from bibtexparser.bibdatabase import BibDatabase
 from config import db
 from db_helper import get_books, get_articles, get_inproceedings
+from secrets import token_hex
 def gen_bibtex():
     data = BibDatabase()
 
@@ -11,6 +11,8 @@ def gen_bibtex():
     books = get_books()
     for book in books:
         data.entries.append({
+            'ID': token_hex(5),
+            'ENTRYTYPE': 'book',
             'title': book[1],
             'writer': book[2],
             'year': book[3],
@@ -24,3 +26,6 @@ def gen_bibtex():
 
     with open('library.bib', 'w', encoding='utf-8') as bibfile:
         bibfile.write(writer.write(data))
+    with open('library.bib', 'r', encoding='utf-8') as bibfile:
+        bibtex_content = bibfile.read()
+    return bibtex_content
