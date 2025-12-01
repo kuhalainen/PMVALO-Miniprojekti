@@ -31,3 +31,30 @@ Kysymykset kaikille:
 * Tapaamiset on hyviä, hyvä olla agenda
 * Suunnitteluun kannattaa panostaa. Backlog, työnjaot ja tuntimäärät on hyvä määritellä.
 
+## 1.12.2025
+
+Toisessa retrossa käytimme Micrososft whiteboard pohjaa (sailboat). Yhteenvetona esille nousivat seuraavat asiat:
+
+### Strengths
+* Kaikki osallistuvat aktiiviissesti
+* Tapaamiset ollut hyviä 
+* Parikoodaus
+
+### Successes
+* Saatiin paljon aikaiseksi
+* Kaikki osallistui
+* Lopputulos oli hyvä
+
+### Goals
+* Valmis projekti
+* Hyvä sprintti
+* Joululoma
+### Obstacles
+* Tekninen velka, pylint, tekemättömät user storyt, koodin laatu
+* Paljon työtä jäljellä
+
+### Ankkurit
+* Myöhästymiset tapaamisesta
+* Myöhäinen sprintin aloitus
+* Backlogin estimaatit kuntoon ja seurataan reaaliajassa.
+
