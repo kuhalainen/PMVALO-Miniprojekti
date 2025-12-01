@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from flask import redirect, render_template, request, jsonify, flash
 from config import text, db, app, test_env
 import db_helper
+from bibtex_gen import gen_bibtex
 
 
 load_dotenv()
@@ -289,6 +290,12 @@ def remove_inproceeding(inproceeding_id):
             flash('Konferenssijulkaisun artikkeli poistettu onnistuneesti', 'success')
             return redirect('/')
         return redirect('/inproceeding/' + str(inproceeding_id))
+    
+@app.route('/bibtex')
+def generate_bibtex():
+    gen_bibtex()
+    with open('library.bib') as file:
+        teksti = file.text()
 
 if test_env:
     @app.route("/reset_db")
