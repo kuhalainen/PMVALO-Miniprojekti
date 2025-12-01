@@ -16,3 +16,7 @@ class TestTodoValidation(unittest.TestCase):
     def test_negative_year_raises_error(self):
         with self.assertRaises(UserInputError):
             validate_book("Valid Title", "author", -1990, "1234567890", "publisher")
+
+    def test_non_four_digit_year_raises_error(self):
+        with self.assertRaises(UserInputError):
+            validate_book("Valid Title", "author", 99, "1234567890", "publisher")
