@@ -1,15 +1,12 @@
 
 from flask import Flask, redirect, render_template, request, jsonify, flash, send_file
 import io
-from config import db
 from db_helper import reset_db
 from repositories.todo_repository import get_todos, create_todo, set_done
-from config import app, test_env
+from config import text, db, app, test_env
 from util import UserInputError, validate_book
 import os
 from dotenv import load_dotenv
-from flask import redirect, render_template, request, jsonify, flash
-from config import text, db, app, test_env
 import db_helper
 from bibtex_gen import gen_bibtex
 
@@ -37,7 +34,10 @@ def index():
     else:
         items = db_helper.get_all_references(sort)
         countitems = len(items)
-    return render_template("index.html", items = items, countitems = countitems, selected=selected, sort=sort)
+    return render_template("index.html", items = items,
+                           countitems = countitems,
+                           selected=selected,
+                           sort=sort)
 
 @app.route('/books/new')
 def new_book():
@@ -305,13 +305,13 @@ def remove_inproceeding(inproceeding_id):
             flash('Konferenssijulkaisun artikkeli poistettu onnistuneesti', 'success')
             return redirect('/')
         return redirect('/inproceeding/' + str(inproceeding_id))
-    
+
 @app.route('/inspect_bibtex')
 def inspect_bibtex():
     content = gen_bibtex()
 
     proxy_file = io.BytesIO(content.encode('utf-8'))
-    
+
     return send_file(
         proxy_file,
         mimetype='text/x-bibtex',
@@ -324,7 +324,7 @@ def download_bibtex():
     content = gen_bibtex()
 
     proxy_file = io.BytesIO(content.encode('utf-8'))
-    
+
     return send_file(
         proxy_file,
         mimetype='text/x-bibtex',

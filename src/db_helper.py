@@ -78,7 +78,7 @@ def get_articles(sort='default'):
         articles.sort(key=lambda x: x[2])
     elif sort == 'year':
         articles.sort(key=lambda x: x[3], reverse=True)
-    
+
     return articles
 
 def get_inproceedings(sort='default'):
@@ -93,7 +93,7 @@ def get_inproceedings(sort='default'):
         inproceedings.sort(key=lambda x: x[2])
     elif sort == 'year':
         inproceedings.sort(key=lambda x: x[3], reverse=True)
-    
+
     return inproceedings
 
 def get_book(book_id):
@@ -119,18 +119,18 @@ def get_all_references(sort='default'):
     books_sql = text("SELECT id, title, writer, year, 'book' as type FROM books")
     articles_sql = text("SELECT id, title, writer, year, 'article' as type FROM articles")
     inproceedings_sql = text("SELECT id, title, writer, year, 'inproceeding' as type FROM inproceedings")
-    
+
     books = db.session.execute(books_sql).fetchall()
     articles = db.session.execute(articles_sql).fetchall()
     inproceedings = db.session.execute(inproceedings_sql).fetchall()
-    
+
     all_items = list(books) + list(articles) + list(inproceedings)
-    
+
     if sort == 'author':
         all_items.sort(key=lambda x: x[2])  # Sort by writer (index 2)
     elif sort == 'year':
         all_items.sort(key=lambda x: x[3], reverse=True)  # Sort by year (index 3) descending
-    #elif sort == 
+    #elif sort ==
 
 
     return all_items
