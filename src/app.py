@@ -23,20 +23,21 @@ if not app.secret_key:
 @app.route("/")
 def index():
     selected = request.args.get('category', 'all')
+    sort = request.args.get('sort', 'default')
 
     if selected == 'books':
-        items = db_helper.get_books()
+        items = db_helper.get_books(sort)
         countitems = len(items)
     elif selected == 'articles':
-        items = db_helper.get_articles()
+        items = db_helper.get_articles(sort)
         countitems = len(items)
     elif selected == 'inproceedings':
-        items = db_helper.get_inproceedings()
+        items = db_helper.get_inproceedings(sort)
         countitems = len(items)
     else:
-        items = db_helper.get_all_references()
+        items = db_helper.get_all_references(sort)
         countitems = len(items)
-    return render_template("index.html", items = items, countitems = countitems, selected=selected)
+    return render_template("index.html", items = items, countitems = countitems, selected=selected, sort=sort)
 
 @app.route('/books/new')
 def new_book():
