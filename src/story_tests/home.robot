@@ -29,6 +29,8 @@ Submit book
     Input Text  title  Testbook
     Input Text  author  Author
     Input Text  year  2020
+    Input Text  isbn  1234567890
+    Input Text  publisher  TestPublisher
     Click Button  Tallenna kirja
     Main Page Should Be Open
     Page Should Contain  Testbook
@@ -65,6 +67,8 @@ Modify book
     Input Text  title  Testbook
     Input Text  author  Author
     Input Text  year  2020
+    Input Text  isbn  1234567890
+    Input Text  publisher  TestPublisher
     Click Button  Tallenna kirja
     Main Page Should Be Open
     Page Should Contain  Testbook
@@ -82,6 +86,8 @@ Delete book
     Input Text  title  Testbook
     Input Text  author  Author
     Input Text  year  2020
+    Input Text  isbn  1234567890
+    Input Text  publisher  TestPublisher
     Click Button  Tallenna kirja
     Main Page Should Be Open
     Page Should Contain  Testbook
@@ -217,9 +223,7 @@ Lisää viite sivu Should Be Open
     Title Should Be  Lisää viite
 
 References are reset
-    Page Should Contain  Lisätyt kirjat: 0
-    Page Should Contain  Lisätyt artikkelit: 0
-    Page Should Contain  Lisätyt konferenssijulkaisujen artikkelit: 0
+    Page Should Contain  Lisätyt viitteet: 0
 
 Lisää artikkeli sivu Should Be Open
     Title Should Be  Lisää artikkeli

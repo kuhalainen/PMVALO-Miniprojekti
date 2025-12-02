@@ -5,7 +5,7 @@ from config import db
 from db_helper import reset_db
 from repositories.todo_repository import get_todos, create_todo, set_done
 from config import app, test_env
-from util import validate_book
+from util import UserInputError, validate_book
 import os
 from dotenv import load_dotenv
 from flask import redirect, render_template, request, jsonify, flash
@@ -22,15 +22,22 @@ if not app.secret_key:
 
 @app.route("/")
 def index():
-    books = db_helper.get_books()
-    countbooks = len(books)
-    articles = db_helper.get_articles()
-    countarticles = len(articles)
-    inproceedings = db_helper.get_inproceedings()
-    countinproceedings = len(inproceedings)
-    return render_template("index.html", books=books, articles = articles,
-                            countbooks = countbooks, countarticles = countarticles,
-                            inproceedings = inproceedings, countinproceedings = countinproceedings)
+    selected = request.args.get('category', 'all')
+    sort = request.args.get('sort', 'default')
+
+    if selected == 'books':
+        items = db_helper.get_books(sort)
+        countitems = len(items)
+    elif selected == 'articles':
+        items = db_helper.get_articles(sort)
+        countitems = len(items)
+    elif selected == 'inproceedings':
+        items = db_helper.get_inproceedings(sort)
+        countitems = len(items)
+    else:
+        items = db_helper.get_all_references(sort)
+        countitems = len(items)
+    return render_template("index.html", items = items, countitems = countitems, selected=selected, sort=sort)
 
 @app.route('/books/new')
 def new_book():
@@ -53,7 +60,14 @@ def create_book():
     publisher = request.form.get('publisher')
 
     # Minimal validation: title and author required
-    validate_book(title, author, year, isbn, publisher)
+    try:
+        validate_book(title, author, year, isbn, publisher)
+    except UserInputError as e:
+        flash(str(e), 'error')
+        return redirect('/books/new')
+    except ValueError as e:
+        flash(str(e), 'error')
+        return redirect('/books/new')
 
     if not title or not author:
         flash('Title and author are required.', 'error')
