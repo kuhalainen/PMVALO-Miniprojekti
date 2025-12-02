@@ -29,6 +29,8 @@ Submit book
     Input Text  title  Testbook
     Input Text  author  Author
     Input Text  year  2020
+    Input Text  isbn  1234567890
+    Input Text  publisher  TestPublisher
     Click Button  Tallenna kirja
     Main Page Should Be Open
     Page Should Contain  Testbook
@@ -65,6 +67,8 @@ Modify book
     Input Text  title  Testbook
     Input Text  author  Author
     Input Text  year  2020
+    Input Text  isbn  1234567890
+    Input Text  publisher  TestPublisher
     Click Button  Tallenna kirja
     Main Page Should Be Open
     Page Should Contain  Testbook
@@ -82,6 +86,8 @@ Delete book
     Input Text  title  Testbook
     Input Text  author  Author
     Input Text  year  2020
+    Input Text  isbn  1234567890
+    Input Text  publisher  TestPublisher
     Click Button  Tallenna kirja
     Main Page Should Be Open
     Page Should Contain  Testbook
