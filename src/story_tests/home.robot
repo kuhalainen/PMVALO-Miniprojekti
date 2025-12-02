@@ -177,6 +177,45 @@ Delete inproceeding
     Main Page Should Be Open
     Page Should Not Contain  Testinproceeding
 
+Filtering
+    Click Link  Lisää kirja
+    Lisää kirja sivu Should Be Open
+    Input Text  title  Testbook
+    Input Text  author  Author
+    Input Text  year  2020
+    Input Text  isbn  1234567890
+    Input Text  publisher  TestPublisher
+    Click Button  Tallenna kirja
+    Click Link  Lisää artikkeli
+    Lisää artikkeli sivu Should Be Open
+    Input Text  title  Testarticle
+    Input Text  author  Author
+    Input Text  journal  Journal
+    Input Text  year  2020
+    Input Text  DOI  1     
+    Input Text  volume  10  
+    Input Text  pages  110
+    Click Button  Tallenna artikkeli
+    Click Link  Lisää Konferenssijulkaisun Artikkeli
+    Lisää Konferenssijulkaisun Artikkeli sivu Should Be Open
+    Input Text  title  Testinproceeding
+    Input Text  author  Author
+    Input Text  year  2020
+    Input Text  booktitle  testbooktitle     
+    Click Button  Tallenna Konferenssijulkaisun artikkeli
+    Main Page Should Be Open
+    Select From List By Label  name=category  Näytä kirjat
+    Page Should Not Contain  Testarticle  Testinproceeding
+    Select From List By Label  name=category  Näytä artikkelit
+    Page Should Not Contain  Testbook  Testinproceeding
+    Select From List By Label  name=category  Näytä konferenssijulkaisujen artikkelit
+    Page Should Not Contain  Testbook  Testarticle
+    Select From List By Label  name=category  Näytä kaikki
+    Page Should Contain  Testbook
+    Page Should Contain  Testarticle
+    Page Should Contain  Testinproceeding
+
+
 *** Keywords ***
 
 Reset Application And Go To Starting Page
