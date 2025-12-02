@@ -5,7 +5,7 @@ from config import db
 from db_helper import reset_db
 from repositories.todo_repository import get_todos, create_todo, set_done
 from config import app, test_env
-from util import validate_book
+from util import UserInputError, validate_book
 import os
 from dotenv import load_dotenv
 from flask import redirect, render_template, request, jsonify, flash
@@ -59,7 +59,14 @@ def create_book():
     publisher = request.form.get('publisher')
 
     # Minimal validation: title and author required
-    validate_book(title, author, year, isbn, publisher)
+    try:
+        validate_book(title, author, year, isbn, publisher)
+    except UserInputError as e:
+        flash(str(e), 'error')
+        return redirect('/books/new')
+    except ValueError as e:
+        flash(str(e), 'error')
+        return redirect('/books/new')
 
     if not title or not author:
         flash('Title and author are required.', 'error')
