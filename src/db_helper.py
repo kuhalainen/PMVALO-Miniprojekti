@@ -116,9 +116,9 @@ def get_inproceeding(inproceedings_id):
     return db.session.execute(sql, {"id": inproceedings_id}).fetchone()
 
 def get_all_references(sort='default'):
-    books_sql = text("SELECT id, title, writer, year, 'books' as type FROM books")
-    articles_sql = text("SELECT id, title, writer, year, 'articles' as type FROM articles")
-    inproceedings_sql = text("SELECT id, title, writer, year, 'inproceedings' as type FROM inproceedings")
+    books_sql = text("SELECT id, title, writer, year, 'book' as type FROM books")
+    articles_sql = text("SELECT id, title, writer, year, 'article' as type FROM articles")
+    inproceedings_sql = text("SELECT id, title, writer, year, 'inproceeding' as type FROM inproceedings")
     
     books = db.session.execute(books_sql).fetchall()
     articles = db.session.execute(articles_sql).fetchall()
