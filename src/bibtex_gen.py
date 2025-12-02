@@ -19,7 +19,29 @@ def gen_bibtex():
             'isbn': book[4],
             'publisher': book[5]
         })
-
+    articles = get_articles()
+    for article in articles:
+        data.entries.append({
+            'ID': token_hex(5),
+            'ENTRYTYPE': 'article',
+            'title': article[1],
+            'writer': article[2],
+            'year': article[3],
+            'DOI': article[4],
+            'journal': article[5],
+            'volume': article[6],
+            'pages': article[7]
+        })
+    inproceedings = get_inproceedings()
+    for inpro in inproceedings:
+        data.entries.append({
+            'ID': token_hex(5),
+            'ENTRYTYPE': 'inproceedings',
+            'title': inpro[1],
+            'writer': inpro[2],
+            'year': inpro[3],
+            'booktitle': inpro[4]
+        })
     writer = BibTexWriter()
     writer.indent = '    '     
     writer.comma_first = False 
