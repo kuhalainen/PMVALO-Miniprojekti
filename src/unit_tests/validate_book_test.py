@@ -1,7 +1,7 @@
 import unittest
 from util import validate_book, UserInputError
 
-class TestTodoValidation(unittest.TestCase):
+class TestValidation(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -21,15 +21,19 @@ class TestTodoValidation(unittest.TestCase):
         with self.assertRaises(UserInputError):
             validate_book("Valid Title", "author", 99, "1234567890", "publisher")
 
+    def test_year_cant_be_set_to_future(self):
+        with self.assertRaises(UserInputError):
+            validate_book("Valid Title", "author", 3000, "1234567890", "publisher")
+
     def test_invalid_isbn_raises_error(self):
         with self.assertRaises(UserInputError):
             validate_book("Valid Title", "author", 2020, "invalid_isbn", "publisher")
     
     def test_isbn_wrong_length_raises_error(self):
         with self.assertRaises(UserInputError):
-            validate_book("Valid Title", "author", 2020, "123456789", "publisher")  # 9 digits
+            validate_book("Valid Title", "author", 2020, "123456789", "publisher")
         with self.assertRaises(UserInputError):
-            validate_book("Valid Title", "author", 2020, "123456789012", "publisher")  # 12 digits
+            validate_book("Valid Title", "author", 2020, "123456789012", "publisher")
 
     def test_valid_input_does_not_raise_error(self):
         try:

@@ -1,3 +1,6 @@
+import datetime
+
+
 class UserInputError(Exception):
     pass
 
@@ -15,4 +18,5 @@ def validate_book(title, author, year, isbn, publisher):
     if not (str(isbn).isdigit() and (len(str(isbn)) == 10 or len(str(isbn)) == 13)):
         raise UserInputError("Error: ISBN must be a 10 or 13 digit number.")
     
-    
+    if int(year) > datetime.datetime.now().year:
+        raise UserInputError("Error: Year cannot be set to the future.")
