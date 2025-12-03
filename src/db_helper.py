@@ -127,54 +127,10 @@ def get_all_references(sort='default'):
     all_items = list(books) + list(articles) + list(inproceedings)
 
     if sort == 'author':
-        all_items.sort(key=lambda x: x[2])  # Sort by writer (index 2)
-    elif sort == 'year':
-        all_items.sort(key=lambda x: x[3], reverse=True)  # Sort by year (index 3) descending
-    #elif sort ==
-
+        all_items.sort(key=lambda x: x[2])
+        all_items.sort(key=lambda x: x[3], reverse=True)
 
     return all_items
-    #if sort == 'author':
-        #sql = text(
-            #"SELECT * FROM books " \
-            #"UNION ALL SELECT * FROM articles " \
-            #"UNION ALL SELECT * FROM inproceedings " \
-            #"ORDER BY writer ASC"
-       # )
-    #elif sort == 'year':
-        #sql = text(
-            #"SELECT * FROM books" \
-            #" UNION ALL SELECT * FROM articles" \
-            #" UNION ALL SELECT * FROM inproceedings " \
-            #"ORDER BY year ASC"
-       # )
-    #else:
-        #sql = text(
-            #3#"SELECT * FROM books " \
-            #"UNION ALL SELECT * FROM articles " \
-            #"UNION ALL SELECT * FROM inproceedings ")
-    
-    #sql = text(
-        #"SELECT books.id AS id, " \
-        #"books.title AS title, " \
-        #"books.writer AS writer, " \
-        #"books.year AS year, "
-        #"'book' AS type FROM books "
-        #"UNION "
-        #"SELECT articles.id AS id, " \
-        #"articles.title AS title, " \
-        #"articles.writer AS writer, " \
-        #"articles.year AS year, "
-        #"'article' AS type FROM articles "
-        #"UNION "
-        #"SELECT inproceedings.id AS id, " \
-        #"inproceedings.title AS title, " \
-        #"inproceedings.writer AS writer, " \
-        #"inproceedings.year AS year, "
-        #"'inproceeding' AS type FROM inproceedings "
-        #"ORDER BY title ASC"
-    #)
-    #return db.session.execute(sql).fetchall()
 
 def delete_book(book_id):
     sql = text("DELETE FROM books WHERE id = :id")
