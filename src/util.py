@@ -25,7 +25,7 @@ def validate_book(title, author, year, isbn, publisher):
         raise UserInputError("Error: Year cannot be set to the future.")
 
 
-def validate_article(title, author, year):
+def validate_article(title, author, year, doi=None, journal=None, volume=None, pages=None):
     if not title or not author:
         raise UserInputError("Error: Title and author cannot be empty.")
 
