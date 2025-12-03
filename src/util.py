@@ -40,3 +40,21 @@ def validate_article(title, author, year, doi=None, journal=None, volume=None, p
     
     if int(year) > datetime.datetime.now().year:
         raise UserInputError("Error: Year cannot be set to the future.")
+    
+
+def validate_inproceedings(title, author, booktitle, year):
+    
+    if not title or not author or not booktitle or not year:
+        raise UserInputError("Error: Title, author, booktitle, and year cannot be empty.")
+
+    if len(title) < 5 or len(title) > 100:
+        raise UserInputError("Error: Title must be between 5 and 100 characters long.")
+
+    if int(year) < 0:
+        raise UserInputError("Error: Year cannot be negative.")
+    
+    if len(str(year)) != 4 or not str(year).isdigit():
+        raise UserInputError("Error: Year must be a four-digit number.")
+    
+    if int(year) > datetime.datetime.now().year:
+        raise UserInputError("Error: Year cannot be set to the future.")

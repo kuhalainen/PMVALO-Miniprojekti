@@ -1,5 +1,5 @@
 import unittest
-from util import validate_book, validate_article, UserInputError
+from util import validate_book, validate_article, validate_inproceedings, UserInputError
 
 class TestValidation(unittest.TestCase):
     def setUp(self):
@@ -66,3 +66,25 @@ class TestValidation(unittest.TestCase):
         with self.assertRaises(UserInputError):
             validate_article("Valid Title", "author", 3000)
     
+
+    def test_empty_inproceedings_fields_raise_error(self):
+        with self.assertRaises(UserInputError):
+            validate_inproceedings("", "author", "booktitle", 2020)
+        with self.assertRaises(UserInputError):
+            validate_inproceedings("Valid Title", "", "booktitle", 2020)
+        with self.assertRaises(UserInputError):
+            validate_inproceedings("Valid Title", "author", "", 2020)
+        with self.assertRaises(UserInputError):
+            validate_inproceedings("Valid Title", "author", "booktitle", "")
+
+    def test_inproceedings_year_negative_raises_error(self):
+        with self.assertRaises(UserInputError):
+            validate_inproceedings("Valid Title", "author", "booktitle", -2020)
+
+    def test_inproceedings_non_four_digit_year_raises_error(self):
+        with self.assertRaises(UserInputError):
+            validate_inproceedings("Valid Title", "author", "booktitle", 99)
+
+    def test_inproceedings_year_cant_be_set_to_future(self):
+        with self.assertRaises(UserInputError):
+            validate_inproceedings("Valid Title", "author", "booktitle", 3000)  

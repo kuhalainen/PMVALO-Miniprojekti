@@ -4,7 +4,7 @@ import io
 from db_helper import reset_db
 from repositories.todo_repository import get_todos, create_todo, set_done
 from config import text, db, app, test_env
-from util import UserInputError, validate_book, validate_article
+from util import UserInputError, validate_book, validate_article, validate_inproceedings
 import os
 from dotenv import load_dotenv
 import db_helper
@@ -135,6 +135,16 @@ def create_inproceeding():
     booktitle = request.form.get('booktitle')
 
     # Minimal validation: title and author required
+
+    try:
+        validate_inproceedings(title, author, booktitle, year)
+    except UserInputError as e:
+        flash(str(e), 'error')
+        return redirect('/inproceedings/new')
+    except ValueError as e:
+        flash(str(e), 'error')
+        return redirect('/inproceedings/new')
+    
     if not title or not author:
         flash('Title and author are required.', 'error')
         return redirect('/inproceedings/new')
