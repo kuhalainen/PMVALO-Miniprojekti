@@ -1,5 +1,5 @@
 import unittest
-from util import validate_book, UserInputError
+from util import validate_book, validate_article, UserInputError
 
 class TestValidation(unittest.TestCase):
     def setUp(self):
@@ -11,7 +11,7 @@ class TestValidation(unittest.TestCase):
 
     def test_too_long_title_raises_error(self):
         with self.assertRaises(UserInputError):
-            validate_book("A" * 21, "author", 2020, "1234567890", "publisher")
+            validate_book("A" * 101, "author", 2020, "1234567890", "publisher")
 
     def test_negative_year_raises_error(self):
         with self.assertRaises(UserInputError):
@@ -40,3 +40,29 @@ class TestValidation(unittest.TestCase):
             validate_book("Valid Title", "author", 2020, "1234567890", "publisher")
         except UserInputError:
             self.fail("validate_book() raised UserInputError unexpectedly!")
+
+
+    def test_empty_article_author_raises_error(self):
+        with self.assertRaises(UserInputError):
+            validate_article("Valid Title", "", 2020)
+
+    def test_article_title_too_short_raises_error(self):
+        with self.assertRaises(UserInputError):
+            validate_article("Shrt", "author", 2020)
+
+    def test_article_title_too_long_raises_error(self):
+        with self.assertRaises(UserInputError):
+            validate_article("A" * 101, "author", 2020)     
+
+    def test_article_negative_year_raises_error(self):
+        with self.assertRaises(UserInputError):
+            validate_article("Valid Title", "author", -2020)
+
+    def test_article_non_four_digit_year_raises_error(self):
+        with self.assertRaises(UserInputError):
+            validate_article("Valid Title", "author", 99)
+
+    def test_article_year_cant_be_set_to_future(self):
+        with self.assertRaises(UserInputError):
+            validate_article("Valid Title", "author", 3000)
+    

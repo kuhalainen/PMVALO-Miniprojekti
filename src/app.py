@@ -4,7 +4,7 @@ import io
 from db_helper import reset_db
 from repositories.todo_repository import get_todos, create_todo, set_done
 from config import text, db, app, test_env
-from util import UserInputError, validate_book
+from util import UserInputError, validate_book, validate_article
 import os
 from dotenv import load_dotenv
 import db_helper
@@ -97,10 +97,19 @@ def create_article():
     volume = request.form.get('volume')
     pages = request.form.get('pages')
 
+    try:
+        validate_article(title, author, year, doi, journal, volume, pages)
+    except UserInputError as e:
+        flash(str(e), 'error')
+        return redirect('/articles/new')
+    except ValueError as e:
+        flash(str(e), 'error')
+        return redirect('/articles/new')
+
     # Minimal validation: title and author required
     if not title or not author:
         flash('Title and author are required.', 'error')
-        return redirect('/books/new')
+        return redirect('/articles/new')
 
     sql = text("INSERT INTO articles (title, writer, year, DOI," \
     " journal, volume, pages) VALUES (:title, :writer, :year, :DOI, :journal, :volume, :pages)")
