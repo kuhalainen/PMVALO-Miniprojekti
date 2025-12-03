@@ -41,7 +41,7 @@ jobs:
       - name: Run unit tests
         run: poetry run pytest src/unit_tests
       - name: Run pylint
-        run: poetry run pylint src
+        run: poetry run pylint src --fail-under=8.5
       - name: Setup chromedriver
         uses: nanasess/setup-chromedriver@master
       - run: |
