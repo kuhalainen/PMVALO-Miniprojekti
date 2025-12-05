@@ -1,18 +1,16 @@
-from secrets import token_hex
 from bibtexparser.bwriter import BibTexWriter
 from bibtexparser.bibdatabase import BibDatabase
-#from config import db
 from db_helper import get_books, get_articles, get_inproceedings
 
-def gen_bibtex():
-    data = BibDatabase()
+class BibtexFile:
+    def __init__(self):
+        self.data = BibDatabase()
+        self.data.entries = []
 
-    data.entries = []
 
-    books = get_books()
-    for book in books:
-        data.entries.append({
-            'ID': token_hex(5),
+    def add_book(self, id, book):
+        self.data.entries.append({
+            'ID': id,
             'ENTRYTYPE': 'book',
             'title': book[1],
             'writer': book[2],
@@ -20,10 +18,10 @@ def gen_bibtex():
             'isbn': book[4],
             'publisher': book[5]
         })
-    articles = get_articles()
-    for article in articles:
-        data.entries.append({
-            'ID': token_hex(5),
+
+    def add_article(self, id, article):
+        self.data.entries.append({
+            'ID': id,
             'ENTRYTYPE': 'article',
             'title': article[1],
             'writer': article[2],
@@ -33,22 +31,25 @@ def gen_bibtex():
             'volume': article[6],
             'pages': article[7]
         })
-    inproceedings = get_inproceedings()
-    for inpro in inproceedings:
-        data.entries.append({
-            'ID': token_hex(5),
+    
+
+    def add_inproceeding(self, id, inpro):
+        self.data.entries.append({
+            'ID': id,
             'ENTRYTYPE': 'inproceedings',
             'title': inpro[1],
             'writer': inpro[2],
             'year': inpro[3],
             'booktitle': inpro[4]
         })
-    writer = BibTexWriter()
-    writer.indent = '    '
-    writer.comma_first = False
 
-    with open('library.bib', 'w', encoding='utf-8') as bibfile:
-        bibfile.write(writer.write(data))
-    with open('library.bib', 'r', encoding='utf-8') as bibfile:
-        bibtex_content = bibfile.read()
-    return bibtex_content
+    def get_file_content(self):
+        writer = BibTexWriter()
+        writer.indent = '    '
+        writer.comma_first = False
+
+        with open('library.bib', 'w', encoding='utf-8') as bibfile:
+            bibfile.write(writer.write(self.data))
+        with open('library.bib', 'r', encoding='utf-8') as bibfile:
+            bibtex_content = bibfile.read()
+        return bibtex_content

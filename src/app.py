@@ -1,14 +1,16 @@
 
 from flask import Flask, redirect, render_template, request, jsonify, flash, send_file
 import io
-from db_helper import reset_db
+from db_helper import reset_db, get_books, get_articles, get_inproceedings
 from repositories.todo_repository import get_todos, create_todo, set_done
 from config import text, db, app, test_env
 from util import UserInputError, validate_book, validate_article, validate_inproceedings
 import os
 from dotenv import load_dotenv
 import db_helper
-from bibtex_gen import gen_bibtex
+from bibtex_gen import BibtexFile
+from secrets import token_hex
+
 
 
 load_dotenv()
@@ -327,7 +329,16 @@ def remove_inproceeding(inproceeding_id):
 
 @app.route('/inspect_bibtex')
 def inspect_bibtex():
-    content = gen_bibtex()
+    file = BibtexFile()
+    for book in get_books():
+        file.add_book(token_hex(5), book)
+    for article in get_articles():
+        file.add_article(token_hex(5), article)
+    for inpro in get_inproceedings():
+        file.add_inproceeding(token_hex(5), inpro)
+
+
+    content = file.get_file_content()
 
     proxy_file = io.BytesIO(content.encode('utf-8'))
 
@@ -340,7 +351,16 @@ def inspect_bibtex():
 
 @app.route('/download_bibtex')
 def download_bibtex():
-    content = gen_bibtex()
+    file = BibtexFile()
+    for book in get_books():
+        file.add_book(token_hex(5), book)
+    for article in get_articles():
+        file.add_article(token_hex(5), article)
+    for inpro in get_inproceedings():
+        file.add_inproceeding(token_hex(5), inpro)
+
+
+    content = file.get_file_content()
 
     proxy_file = io.BytesIO(content.encode('utf-8'))
 
