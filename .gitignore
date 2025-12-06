@@ -9,3 +9,4 @@ report.html
 possu.sh
 geckodriver-*
 library.bib
+.coverage
