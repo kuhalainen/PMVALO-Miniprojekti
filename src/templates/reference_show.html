@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+  <p>
+  <h1 class="title">{{ reference.title }}</h1>
+  </p>
+<p>
+  {% for field in fields %}
+    {{ field['label'] }}: {{ reference[field['name']] }} <br/><br/>
+{% endfor %}
+</p>
+  <p>
+    <a href={{ edit_button_url }} class="button">Muokkaa</a>
+    <a href={{ remove_button_url }} class="button">Poista</a>
+    <a href="/" class="button">Palaa etusivulle</a>
+  </p>
+</body>
+
+</html>
