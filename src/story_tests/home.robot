@@ -95,7 +95,7 @@ Delete book
     Book Page Should Be Open
     Click Link  Poista
     Remove Book Page Should Be Open
-    Click Button  Poista ilmoitus
+    Click Button  Poista kirja
     Main Page Should Be Open
     Page Should Not Contain  Testbook
 
@@ -137,7 +137,7 @@ Delete article
     Article Page Should Be Open
     Click Link  Poista
     Remove Article Page Should Be Open
-    Click Button  Poista ilmoitus
+    Click Button  Poista artikkeli
     Main Page Should Be Open
     Page Should Not Contain  Testarticle
 
@@ -173,7 +173,7 @@ Delete inproceeding
     Inproceeding Page Should Be Open
     Click Link  Poista
     Remove Inproceeding Page Should Be Open
-    Click Button  Poista ilmoitus
+    Click Button  Poista konferenssinjulkaisun artikkeli
     Main Page Should Be Open
     Page Should Not Contain  Testinproceeding
 
@@ -238,7 +238,7 @@ Article Page Should Be Open
     Title Should Be  Article 
 
 Modify Article Page Should Be Open
-    Title Should Be  Muokkaa artikkeli
+    Title Should Be  Muokkaa artikkelia
 
 Remove Article Page Should Be Open
     Title Should Be  Artikkelin poisto
@@ -247,7 +247,7 @@ Inproceeding Page Should Be Open
     Title Should Be  Inproceeding
 
 Modify Inproceeding Page Should Be Open
-    Title Should Be  Muokkaa inproceeding
+    Title Should Be  Muokkaa konferenssinjulkaisun artikkelia
 
 Remove Inproceeding Page Should Be Open
     Title Should Be  Konferenssinjulkaisun artikkelin poisto

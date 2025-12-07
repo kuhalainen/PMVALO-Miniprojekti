@@ -1,11 +1,11 @@
 <!doctype html>
 <html>
   <head>
-    <title>Lisää artikkeli</title>
+    <title>{{ title }}</title>
     <link rel="stylesheet" href="/static/main.css">
   </head>
   <body>
-    <h1>Lisää artikkeli</h1>
+    <h1>{{ title }}</h1>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -17,7 +17,7 @@
       {% endif %}
     {% endwith %}
 
-    <form method="post" action="/articles/create">
+    <!-- <form method="post" action="/articles/create">
       <label for="title">Title</label>
       <input id="title" name="title" type="text" required>
 
@@ -40,6 +40,25 @@
       <input id="pages" name="pages" type="text">
 
       <button type="submit" class="button">Tallenna artikkeli</button>
+    </form> -->
+
+    <form method="post" action={{ submit_url }}>
+      {% for field in fields %}
+      <label for="{{ field['name'] }}">{{ field['label'] }}</label>
+        <input 
+        {% if field['name'] %} id="{{ field['name'] }}" {% endif %}
+        {% if field['name'] %} name="{{ field['name'] }}" {% endif %}
+        {% if field['type'] %} type="{{ field['type'] }}" {% endif %}
+        {% if field['required'] %} required {% endif %}
+        {% if field['inputmode'] %} inputmode="{{ field['inputmode'] }}" {% endif %}
+        {% if field['pattern'] %} pattern="{{ field['pattern'] }}" {% endif %}
+        >
+      {% endfor %}
+
+
+
+
+      <button type="submit" class="button">{{ submit_button_text }}</button>
     </form>
     <p><a href="/" class="button">Takaisin etusivulle</a></p>
   </body>

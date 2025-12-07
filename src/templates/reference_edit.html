@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/main.css">
+  </head>
+  <body>
+    <h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="post" action={{ submit_button_url }}>
+      {% for field in fields %}
+      <label for="{{ field['name'] }}">{{ field['label'] }}</label>
+        <input 
+        {% if field['name'] %} id="{{ field['name'] }}" {% endif %}
+        {% if field['name'] %} name="{{ field['name'] }}" {% endif %}
+        {% if field['type'] %} type="{{ field['type'] }}" {% endif %}
+        {% if field['required'] %} required {% endif %}
+        {% if field['inputmode'] %} inputmode="{{ field['inputmode'] }}" {% endif %}
+        {% if field['pattern'] %} pattern="{{ field['pattern'] }}" {% endif %}
+        {% if reference[field['name']] is defined %} value="{{ reference[field['name']] }}" {% endif %}
+        >
+      {% endfor %}
+      <button type="submit" class="button">{{ submit_button_text }}</button>
+    </form>
+
+
+    <p><a href={{ back_button_url }} class="button">{{ back_button_text }}</a></p>
+  </body>
+</html>

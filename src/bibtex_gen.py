@@ -31,7 +31,7 @@ class BibtexFile:
             'volume': article[6],
             'pages': article[7]
         })
-    
+
 
     def add_inproceeding(self, id, inpro):
         self.data.entries.append({

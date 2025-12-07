@@ -11,7 +11,30 @@ import db_helper
 from bibtex_gen import BibtexFile
 from secrets import token_hex
 
+BOOK_FIELDS = [
+    {"name": "title", "label": "Title", "type": "text", "required": True},
+    {"name": "author", "label": "Author", "type": "text", "required": True},
+    {"name": "year", "label": "Year", "type": "number"},
+    {"name": "isbn", "label": "ISBN", "type": "text"},
+    {"name": "publisher", "label": "Publisher", "type": "text"},
+]
 
+ARTICLE_FIELDS = [
+    {"name": "title", "label": "Title", "type": "text", "required": True},
+    {"name": "author", "label": "Author", "type": "text", "required": True},
+    {"name": "year", "label": "Year", "type": "number", "inputmode": "numeric", "pattern": "[0-9]{4}"},
+    {"name": "DOI", "label": "DOI", "type": "text"},
+    {"name": "journal", "label": "Journal", "type": "text"},
+    {"name": "volume", "label": "Volume", "type": "text"},
+    {"name": "pages", "label": "Pages", "type": "text"},
+]
+
+INPROCEEDING_FIELDS = [
+    {"name": "title", "label": "Title", "type": "text", "required": True},
+    {"name": "booktitle", "label": "Booktitle", "type": "text"},
+    {"name": "author", "label": "Author", "type": "text", "required": True},
+    {"name": "year", "label": "Year", "type": "number", "inputmode": "numeric", "pattern": "[0-9]{4}"},
+]
 
 load_dotenv()
 app.secret_key = os.getenv("SECRET_KEY")
@@ -43,15 +66,33 @@ def index():
 
 @app.route('/books/new')
 def new_book():
-    return render_template('book_form.html')
+
+    return render_template('reference_add.html',
+                            title = "Lisää kirja",
+                            fields=BOOK_FIELDS,
+                            submit_button_text="Tallenna kirja",
+                            submit_url="/books/create"
+    )
 
 @app.route('/articles/new')
 def new_article():
-    return render_template('article_form.html')
+
+    return render_template('reference_add.html',
+                        title = "Lisää artikkeli",
+                        fields=ARTICLE_FIELDS,
+                        submit_button_text="Tallenna artikkeli",
+                        submit_url="/articles/create"
+    )
 
 @app.route('/inproceedings/new')
 def new_inproceeding():
-    return render_template('inproceeding_form.html')
+
+    return render_template('reference_add.html',
+                    title = "Lisää Konferenssijulkaisun artikkeli",
+                    fields=INPROCEEDING_FIELDS,
+                    submit_button_text="Tallenna Konferenssijulkaisun artikkeli",
+                    submit_url="/inproceedings/create"
+    )
 
 @app.route('/books/create', methods=['POST'])
 def create_book():
@@ -146,7 +187,7 @@ def create_inproceeding():
     except ValueError as e:
         flash(str(e), 'error')
         return redirect('/inproceedings/new')
-    
+
     if not title or not author:
         flash('Title and author are required.', 'error')
         return redirect('/inproceedings/new')
@@ -167,14 +208,32 @@ def create_inproceeding():
 @app.route('/book/<int:book_id>')
 def book(book_id):
     current_book = db_helper.get_book(book_id)
+    current_book_dict = dict(current_book._mapping)
+    current_book_dict['author'] = current_book_dict.pop('writer')
 
-    return render_template("/book.html", book=current_book)
+    return render_template("/reference_show.html",
+                            title = "Book",
+                            reference=current_book_dict,
+                            fields=BOOK_FIELDS,
+                            edit_button_url=f"/edit_book/{book_id}",
+                            remove_button_url=f"/remove_book/{book_id}")
 
 @app.route('/edit_book/<int:book_id>')
 def edit_book(book_id):
     current_book = db_helper.get_book(book_id)
 
-    return render_template('edit_book.html', book=current_book)
+    current_book_dict = dict(current_book._mapping)
+    current_book_dict['author'] = current_book_dict.pop('writer')
+
+    return render_template('reference_edit.html',
+                            reference=current_book_dict,
+                            title = "Muokkaa kirjaa",
+                            fields=BOOK_FIELDS,
+                            submit_button_text="Tallenna muutokset",
+                            submit_button_url=f"/books/edit/{book_id}",
+                            back_button_text="Takaisin kirjan sivulle",
+                            back_button_url=f"/book/{book_id}"
+    )
 
 @app.route('/books/edit/<int:book_id>', methods=['POST'])
 def edit_book_post(book_id):
@@ -209,7 +268,14 @@ def remove_book(book_id):
     book = db_helper.get_book(book_id)
 
     if request.method == 'GET':
-        return render_template('remove_book.html', book=book)
+        return render_template('reference_remove.html',
+                                reference=book,
+                                title="Kirjan poisto",
+                                conf_message="Haluatko varmasti poistaa tämän kirjan",
+                                form_url=f"/remove_book/{book_id}",
+                                remove_button_text="Poista kirja"
+                                )
+
     if request.method == 'POST':
         if "remove" in request.form:
             db_helper.delete_book(book_id)
@@ -221,13 +287,34 @@ def remove_book(book_id):
 def article(article_id):
     current_article = db_helper.get_article(article_id)
 
-    return render_template("/article.html", article=current_article)
+    current_article_dict = dict(current_article._mapping)
+    current_article_dict['author'] = current_article_dict.pop('writer')
+    current_article_dict['DOI'] = current_article_dict.pop('doi')
+
+    return render_template("/reference_show.html",
+                            title = "Article",
+                            reference=current_article_dict,
+                            fields=ARTICLE_FIELDS,
+                            edit_button_url=f"/edit_article/{article_id}",
+                            remove_button_url=f"/remove_article/{article_id}")
 
 @app.route('/edit_article/<int:article_id>')
 def edit_article(article_id):
     current_article = db_helper.get_article(article_id)
 
-    return render_template('edit_article.html', article=current_article)
+    current_article_dict = dict(current_article._mapping)
+    current_article_dict['author'] = current_article_dict.pop('writer')
+    current_article_dict['DOI'] = current_article_dict.pop('doi')
+
+    return render_template('reference_edit.html',
+                            reference=current_article_dict,
+                            title = "Muokkaa artikkelia",
+                            fields=ARTICLE_FIELDS,
+                            submit_button_text="Tallenna muutokset",
+                            submit_button_url=f"/articles/edit/{article_id}",
+                            back_button_text="Takaisin artikkelin sivulle",
+                            back_button_url=f"/article/{article_id}"
+    )
 
 @app.route('/articles/edit/<int:article_id>', methods=['POST'])
 def edit_article_post(article_id):
@@ -268,7 +355,14 @@ def remove_article(article_id):
     article = db_helper.get_article(article_id)
 
     if request.method == 'GET':
-        return render_template('remove_article.html', article=article)
+        return render_template('reference_remove.html',
+                        reference=article,
+                        title="Artikkelin poisto",
+                        conf_message="Haluatko varmasti poistaa tämän artikkelin?",
+                        form_url=f"/remove_article/{article_id}",
+                        remove_button_text="Poista artikkeli"
+                        )
+
     if request.method == 'POST':
         if "remove" in request.form:
             db_helper.delete_article(article_id)
@@ -280,13 +374,34 @@ def remove_article(article_id):
 def inproceeding(inproceeding_id):
     current_inproceeding = db_helper.get_inproceeding(inproceeding_id)
 
-    return render_template("/inproceeding.html", inproceeding=current_inproceeding)
+    current_inproceeding_dict = dict(current_inproceeding._mapping)
+    current_inproceeding_dict['author'] = current_inproceeding_dict.pop('writer')
+    #current_inproceeding_dict['DOI'] = current_inproceeding_dict.pop('doi')
+
+    return render_template("/reference_show.html",
+                            title = "Inproceeding",
+                            reference=current_inproceeding_dict,
+                            fields=INPROCEEDING_FIELDS,
+                            edit_button_url=f"/edit_inproceeding/{inproceeding_id}",
+                            remove_button_url=f"/remove_inproceeding/{inproceeding_id}")
 
 @app.route('/edit_inproceeding/<int:inproceeding_id>')
 def edit_inproceeding(inproceeding_id):
     current_inproceeding = db_helper.get_inproceeding(inproceeding_id)
 
-    return render_template('edit_inproceeding.html', inproceeding=current_inproceeding)
+    current_inproceeding_dict = dict(current_inproceeding._mapping)
+    current_inproceeding_dict['author'] = current_inproceeding_dict.pop('writer')
+    #current_inproceeding_dict['DOI'] = current_inproceeding_dict.pop('doi')
+
+    return render_template('reference_edit.html',
+                        reference=current_inproceeding_dict,
+                        title = "Muokkaa konferenssinjulkaisun artikkelia",
+                        fields=INPROCEEDING_FIELDS,
+                        submit_button_text="Tallenna muutokset",
+                        submit_button_url=f"/inproceedings/edit/{inproceeding_id}",
+                        back_button_text="Takaisin konferenssinjulkaisun artikkelin sivulle",
+                        back_button_url=f"/inproceeding/{inproceeding_id}"
+)
 
 @app.route('/inproceedings/edit/<int:inproceeding_id>', methods=['POST'])
 def edit_inproceeding_post(inproceeding_id):
@@ -319,7 +434,13 @@ def remove_inproceeding(inproceeding_id):
     inproceeding = db_helper.get_inproceeding(inproceeding_id)
 
     if request.method == 'GET':
-        return render_template('remove_inproceeding.html', inproceeding=inproceeding)
+        return render_template('reference_remove.html',
+                        reference=inproceeding,
+                        title="Konferenssinjulkaisun artikkelin poisto",
+                        conf_message="Haluatko varmasti poistaa tämän artikkelin?",
+                        form_url=f"/remove_inproceeding/{inproceeding_id}",
+                        remove_button_text="Poista konferenssinjulkaisun artikkeli"
+                        )
     if request.method == 'POST':
         if "remove" in request.form:
             db_helper.delete_inproceeding(inproceeding_id)

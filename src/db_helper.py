@@ -60,7 +60,7 @@ def get_books(sort='default'):
         books.sort(key=lambda x: x[2])
     elif sort == 'year':
         books.sort(key=lambda x: x[3], reverse=True)
-    
+
     return books
 
 def get_articles(sort='default'):
@@ -104,7 +104,7 @@ def get_book(book_id):
 def get_article(article_id):
 
     sql = text("SELECT articles.id, articles.title, articles.writer, articles.year," \
-    " articles.doi, articles.journal FROM articles WHERE articles.id = :id ")
+    " articles.doi, articles.journal, articles.volume, articles.pages FROM articles WHERE articles.id = :id ")
 
     return db.session.execute(sql, {"id": article_id}).fetchone()
 
