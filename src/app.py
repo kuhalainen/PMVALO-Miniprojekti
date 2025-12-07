@@ -94,9 +94,6 @@ def new_inproceeding():
                     submit_url="/inproceedings/create"
     )
 
-
-    #return render_template('inproceeding_form.html')
-
 @app.route('/books/create', methods=['POST'])
 def create_book():
     title = request.form.get('title')
@@ -319,8 +316,6 @@ def edit_article(article_id):
                             back_button_url=f"/article/{article_id}"
     )
 
-    #return render_template('edit_article.html', article=current_article)
-
 @app.route('/articles/edit/<int:article_id>', methods=['POST'])
 def edit_article_post(article_id):
     title = request.form.get('title')
@@ -360,7 +355,6 @@ def remove_article(article_id):
     article = db_helper.get_article(article_id)
 
     if request.method == 'GET':
-        #return render_template('remove_article.html', article=article)
         return render_template('reference_remove.html',
                         reference=article,
                         title="Artikkelin poisto",
@@ -409,8 +403,6 @@ def edit_inproceeding(inproceeding_id):
                         back_button_url=f"/inproceeding/{inproceeding_id}"
 )
 
-    #return render_template('edit_inproceeding.html', inproceeding=current_inproceeding)
-
 @app.route('/inproceedings/edit/<int:inproceeding_id>', methods=['POST'])
 def edit_inproceeding_post(inproceeding_id):
     title = request.form.get('title')
@@ -442,7 +434,6 @@ def remove_inproceeding(inproceeding_id):
     inproceeding = db_helper.get_inproceeding(inproceeding_id)
 
     if request.method == 'GET':
-        #return render_template('remove_inproceeding.html', inproceeding=inproceeding)
         return render_template('reference_remove.html',
                         reference=inproceeding,
                         title="Konferenssinjulkaisun artikkelin poisto",
