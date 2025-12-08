@@ -268,20 +268,23 @@ def remove_book(book_id):
     book = db_helper.get_book(book_id)
 
     if request.method == 'GET':
+        prev = request.referrer
         return render_template('reference_remove.html',
                                 reference=book,
                                 title="Kirjan poisto",
                                 conf_message="Haluatko varmasti poistaa tämän kirjan",
                                 form_url=f"/remove_book/{book_id}",
-                                remove_button_text="Poista kirja"
+                                remove_button_text="Poista kirja",
+                                prev_url = prev
                                 )
 
     if request.method == 'POST':
+        prev_url = request.form.get('prev_url')
         if "remove" in request.form:
             db_helper.delete_book(book_id)
             flash('Kirja poistettu onnistuneesti', 'success')
             return redirect('/')
-        return redirect('/book/' + str(book_id))
+        return redirect(prev_url or '/')
 
 @app.route('/article/<int:article_id>')
 def article(article_id):
@@ -355,20 +358,23 @@ def remove_article(article_id):
     article = db_helper.get_article(article_id)
 
     if request.method == 'GET':
+        prev = request.referrer
         return render_template('reference_remove.html',
                         reference=article,
                         title="Artikkelin poisto",
                         conf_message="Haluatko varmasti poistaa tämän artikkelin?",
                         form_url=f"/remove_article/{article_id}",
-                        remove_button_text="Poista artikkeli"
+                        remove_button_text="Poista artikkeli",
+                        prev_url = prev
                         )
 
     if request.method == 'POST':
+        prev_url = request.form.get('prev_url')
         if "remove" in request.form:
             db_helper.delete_article(article_id)
             flash('Artikkeli poistettu onnistuneesti', 'success')
             return redirect('/')
-        return redirect('/article/' + str(article_id))
+        return redirect(prev_url or '/')
 
 @app.route('/inproceeding/<int:inproceeding_id>')
 def inproceeding(inproceeding_id):
@@ -434,19 +440,22 @@ def remove_inproceeding(inproceeding_id):
     inproceeding = db_helper.get_inproceeding(inproceeding_id)
 
     if request.method == 'GET':
+        prev = request.referrer
         return render_template('reference_remove.html',
                         reference=inproceeding,
                         title="Konferenssinjulkaisun artikkelin poisto",
                         conf_message="Haluatko varmasti poistaa tämän artikkelin?",
                         form_url=f"/remove_inproceeding/{inproceeding_id}",
-                        remove_button_text="Poista konferenssinjulkaisun artikkeli"
+                        remove_button_text="Poista konferenssinjulkaisun artikkeli",
+                        prev_url = prev
                         )
     if request.method == 'POST':
+        prev_url = request.form.get('prev_url')
         if "remove" in request.form:
             db_helper.delete_inproceeding(inproceeding_id)
             flash('Konferenssijulkaisun artikkeli poistettu onnistuneesti', 'success')
             return redirect('/')
-        return redirect('/inproceeding/' + str(inproceeding_id))
+        return redirect(prev_url or '/')
 
 @app.route('/inspect_bibtex')
 def inspect_bibtex():
