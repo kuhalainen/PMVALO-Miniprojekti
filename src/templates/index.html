@@ -37,6 +37,7 @@
   <h2>Lisätyt viitteet: {{ countitems }}</h2>
 
   <form method="get" action="/">
+    <input type="hidden" name="sort" value="{{ sort }}">
     <select name="category" onchange="this.form.submit()">
         <option value="all"     {{ "selected" if selected == "all" else "" }}>Näytä kaikki</option>
         <option value="books" {{ "selected" if selected == "books" else "" }}>Näytä kirjat</option>
@@ -46,8 +47,8 @@
   </form>
 
   <p>
-    <a href="/?sort=author" class="button" > Järjestä kirjailijan mukaan</a>
-    <a href="/?sort=year" class="button" > Järjestä vuoden mukaan</a>
+    <a href="/?category={{ selected }}&sort=author" class="button" > Järjestä kirjailijan mukaan</a>
+    <a href="/?category={{ selected }}&sort=year" class="button" > Järjestä vuoden mukaan</a>
   </p>
 
   <p>
