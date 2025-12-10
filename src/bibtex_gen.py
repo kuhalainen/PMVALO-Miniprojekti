@@ -13,7 +13,7 @@ class BibtexFile:
             'ID': id,
             'ENTRYTYPE': 'book',
             'title': book[1],
-            'writer': book[2],
+            'author': book[2],
             'year': book[3],
             'isbn': book[4],
             'publisher': book[5]
@@ -24,7 +24,7 @@ class BibtexFile:
             'ID': id,
             'ENTRYTYPE': 'article',
             'title': article[1],
-            'writer': article[2],
+            'author': article[2],
             'year': article[3],
             'DOI': article[4],
             'journal': article[5],
@@ -38,7 +38,7 @@ class BibtexFile:
             'ID': id,
             'ENTRYTYPE': 'inproceedings',
             'title': inpro[1],
-            'writer': inpro[2],
+            'author': inpro[2],
             'year': inpro[3],
             'booktitle': inpro[4]
         })
