@@ -128,6 +128,7 @@ def get_all_references(sort='default'):
 
     if sort == 'author':
         all_items.sort(key=lambda x: x[2])
+    elif sort == 'year':
         all_items.sort(key=lambda x: x[3], reverse=True)
 
     return all_items
