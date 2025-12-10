@@ -46,18 +46,19 @@ if not app.secret_key:
 def index():
     selected = request.args.get('category', 'all')
     sort = request.args.get('sort', 'default')
+    search = request.args.get('search', None)
 
     if selected == 'books':
-        items = db_helper.get_books(sort)
+        items = db_helper.get_books(sort, search)
         countitems = len(items)
     elif selected == 'articles':
-        items = db_helper.get_articles(sort)
+        items = db_helper.get_articles(sort, search)
         countitems = len(items)
     elif selected == 'inproceedings':
-        items = db_helper.get_inproceedings(sort)
+        items = db_helper.get_inproceedings(sort, search)
         countitems = len(items)
     else:
-        items = db_helper.get_all_references(sort)
+        items = db_helper.get_all_references(sort, search)
         countitems = len(items)
     return render_template("index.html", items = items,
                            countitems = countitems,

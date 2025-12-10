@@ -17,6 +17,23 @@
   transition: background-color 0.3s;
 }
 
+.search-button {
+  margin-top: 0;
+  background-color: rgb(130, 194, 246);
+  color: rgb(10, 60, 100);
+  border: none;
+  padding: 7px 7px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.searchbox {
+  max-width: 200px;
+  width: 100%;
+}
+
 body { 
   font-family: Arial, sans-serif;
   max-width: 1400px; 
@@ -52,6 +69,7 @@ button {
 
 select {
   width: 100%;
+  max-width: fit-content;
   padding: 7px 10px;
   font-size: 16px;
   font-family: Arial, sans-serif;
