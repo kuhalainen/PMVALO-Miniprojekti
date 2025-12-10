@@ -17,31 +17,6 @@
       {% endif %}
     {% endwith %}
 
-    <!-- <form method="post" action="/articles/create">
-      <label for="title">Title</label>
-      <input id="title" name="title" type="text" required>
-
-      <label for="author">Author</label>
-      <input id="author" name="author" type="text" required>
-
-      <label for="year">Year</label>
-      <input id="year" name="year" type="number" inputmode="numeric" pattern="[0-9]{4}">
-
-      <label for="DOI">DOI</label>
-      <input id="DOI" name="DOI" type="text">
-
-      <label for="journal">Journal</label>
-      <input id="journal" name="journal" type="text">
-
-      <label for="volume">Volume</label>
-      <input id="volume" name="volume" type="text">
-
-      <label for="pages">Pages</label>
-      <input id="pages" name="pages" type="text">
-
-      <button type="submit" class="button">Tallenna artikkeli</button>
-    </form> -->
-
     <form method="post" action={{ submit_url }}>
       {% for field in fields %}
       <label for="{{ field['name'] }}">{{ field['label'] }}</label>
