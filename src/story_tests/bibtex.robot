@@ -11,7 +11,7 @@ At start there are no references
     References are reset
 
 
-Bibtex shows book
+Bibtex tiedostossa näkyy kirja
     Click Link  Lisää kirja
     Lisää kirja sivu Should Be Open
     Input Text  title  Bibtexbook
@@ -24,7 +24,7 @@ Bibtex shows book
     Click Link  Katsele bibtex tiedostoa
     Page should contain  title = {Bibtexbook}
 
-Bibtex shows article
+Bibtex tiedostossa näkyy artikkeli
     Click Link  Lisää artikkeli
     Lisää artikkeli sivu Should Be Open
     Input Text  title  Bibtexarticle
@@ -39,7 +39,7 @@ Bibtex shows article
     Click Link  Katsele bibtex tiedostoa
     Page should contain  title = {Bibtexarticle}
 
-Bibtex shows inproceeding
+Bibtex tiedostossa näkyy inproceeding
     Click Link  Lisää Konferenssijulkaisun Artikkeli
     Lisää Konferenssijulkaisun Artikkeli sivu Should Be Open
     Input Text  title  Bibtexinproceeding
