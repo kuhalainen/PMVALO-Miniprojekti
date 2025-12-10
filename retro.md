@@ -58,3 +58,25 @@ Toisessa retrossa käytimme Micrososft whiteboard pohjaa (sailboat). Yhteenveton
 * Myöhäinen sprintin aloitus
 * Backlogin estimaatit kuntoon ja seurataan reaaliajassa.
 
+
+## 3.12.2025
+
+### Strengths
+* Ryhmätyö
+* Ryhmätuki keskusteluun sopivista ratkaisuista.
+
+## Succecces
+* Hyvin saatu tehtyä storeja.
+
+## Goals and Visions
+* Joululoma edelleen
+* Laadukas lopputulos
+
+## Obstacles
+* Tekninen velka, koodi laatu, testikattavuus
+
+## Anchors
+* Myöhäinen aloitus
+* Päällekkäisyydet
+* Testaamiseen tarvittavat työ jaettu huonosti.
+
