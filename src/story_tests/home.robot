@@ -262,7 +262,7 @@ Lisää viite sivu Should Be Open
     Title Should Be  Lisää viite
 
 References are reset
-    Page Should Contain  Lisätyt viitteet: 0
+    Page Should Contain  Viitteitä näkyvillä: 0
 
 Lisää artikkeli sivu Should Be Open
     Title Should Be  Lisää artikkeli

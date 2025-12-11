@@ -62,7 +62,7 @@ Main Page Should Be Open
     Title Should Be  Etusivu
 
 References are reset
-    Page Should Contain  Lisätyt viitteet: 0
+    Page Should Contain  Viitteitä näkyvillä: 0
 
 Lisää kirja sivu Should Be Open
     Title Should Be  Lisää kirja
