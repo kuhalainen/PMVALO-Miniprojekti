@@ -116,16 +116,7 @@ def create_book():
         flash('Title and author are required.', 'error')
         return redirect('/books/new')
 
-    sql = text("INSERT INTO books (title, writer, year, isbn," \
-    " publisher) VALUES (:title, :writer, :year, :isbn, :publisher)")
-    db.session.execute(sql, {
-       'title': title,
-       'writer': author,
-       'year': year,
-       'isbn': isbn,
-       'publisher': publisher
-    })
-    db.session.commit()
+    db_helper.insert_book(title, author, year, isbn, publisher)
 
     flash('Kirja lisätty onnistuneesti', 'success')
     return redirect('/')
@@ -154,18 +145,7 @@ def create_article():
         flash('Title and author are required.', 'error')
         return redirect('/articles/new')
 
-    sql = text("INSERT INTO articles (title, writer, year, DOI," \
-    " journal, volume, pages) VALUES (:title, :writer, :year, :DOI, :journal, :volume, :pages)")
-    db.session.execute(sql, {
-       'title': title,
-       'writer': author,
-       'year': year,
-       'DOI': doi,
-       'journal': journal,
-       'volume': volume,
-       'pages': pages
-    })
-    db.session.commit()
+    db_helper. insert_article(title, author, year, doi, journal, volume, pages)
 
     flash('Artikkeli lisätty onnistuneesti', 'success')
     return redirect('/')
@@ -192,15 +172,7 @@ def create_inproceeding():
         flash('Title and author are required.', 'error')
         return redirect('/inproceedings/new')
 
-    sql = text("INSERT INTO inproceedings (title, writer, year, booktitle)" \
-    "VALUES (:title, :writer, :year, :booktitle)")
-    db.session.execute(sql, {
-       'title': title,
-       'writer': author,
-       'year': year,
-       'booktitle': booktitle,
-    })
-    db.session.commit()
+    db_helper.insert_inrproceedings(title, author, year, booktitle)
 
     flash('Konferenssijulkaisun Artikkeli lisätty onnistuneesti', 'success')
     return redirect('/')
@@ -248,17 +220,7 @@ def edit_book_post(book_id):
         flash('Title and author are required.', 'error')
         return redirect(f'/edit_book/{book_id}')
 
-    sql = text("UPDATE books SET title = :title, writer = :writer," \
-    " year = :year, isbn = :isbn, publisher = :publisher WHERE id = :id")
-    db.session.execute(sql, {
-       'title': title,
-       'writer': author,
-       'year': year,
-       'isbn': isbn,
-       'publisher': publisher,
-       'id': book_id
-    })
-    db.session.commit()
+    db_helper.update_book(title, author, year, isbn, publisher, book_id)
 
     flash('Kirjan tiedot päivitetty onnistuneesti', 'success')
     return redirect('/')
@@ -334,20 +296,7 @@ def edit_article_post(article_id):
         flash('Title and author are required.', 'error')
         return redirect(f'/edit_article/{article_id}')
 
-    sql = text("UPDATE articles SET title = :title, writer = :writer," \
-    " year = :year, DOI = :doi, journal = :journal, volume = :volume," \
-    " pages = :pages WHERE id = :id")
-    db.session.execute(sql, {
-       'title': title,
-       'writer': author,
-       'year': year,
-       'doi': doi,
-       'journal': journal,
-       'volume' : volume,
-       'pages' : pages,
-       'id': article_id
-    })
-    db.session.commit()
+    db_helper.update_article(title, author, year, doi, journal, volume, pages, article_id)
 
     flash('Artikkelin tiedot päivitetty onnistuneesti', 'success')
     return redirect('/')
@@ -421,16 +370,7 @@ def edit_inproceeding_post(inproceeding_id):
         flash('Title and author are required.', 'error')
         return redirect(f'/edit_inproceeding/{inproceeding_id}')
 
-    sql = text("UPDATE inproceedings SET title = :title, writer = :writer," \
-    " year = :year, booktitle = :booktitle WHERE id = :id")
-    db.session.execute(sql, {
-       'title': title,
-       'writer': author,
-       'year': year,
-       'booktitle': booktitle,
-       'id': inproceeding_id
-    })
-    db.session.commit()
+    db_helper.update_inproceedings(title, author, year, booktitle, inproceeding_id)
 
     flash('Konferenssijulkaisun artikkelin tiedot päivitetty onnistuneesti', 'success')
     return redirect('/')

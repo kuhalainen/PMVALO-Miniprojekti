@@ -3,7 +3,6 @@ from sqlalchemy import text
 from config import db, app
 
 
-# Utility functions for database management
 def reset_db():
     print("Clearing contents from tables books and articles")
     for t in tables():
@@ -23,11 +22,12 @@ def tables():
     result = db.session.execute(sql)
     return [row[0] for row in result.fetchall()]
 
+def db_execute_insert(sql, dictionary):
+    db.session.execute(sql, dictionary)
+    db.session.commit()
+
 def setup_db():
-    """
-      Creating the database
-      If database tables already exist, those are dropped before the creation
-    """
+
     tables_in_db = tables()
     if len(tables_in_db) > 0:
         print(f"Tables exist, dropping: {', '.join(tables_in_db)}")
@@ -38,14 +38,46 @@ def setup_db():
 
     print("Creating database")
 
-    # Read schema from schema.sql file
     schema_path = os.path.join(os.path.dirname(__file__), 'schema.sql')
     with open(schema_path, 'r') as f:
         schema_sql = f.read().strip()
 
-    sql = text(schema_sql)
-    db.session.execute(sql)
+    db.session.execute(text(schema_sql))
     db.session.commit()
+
+def insert_book(title, author, year, isbn, publisher):
+    sql = text("INSERT INTO books (title, writer, year, isbn," \
+    " publisher) VALUES (:title, :writer, :year, :isbn, :publisher)")
+    db_execute_insert(sql, {
+       'title': title,
+       'writer': author,
+       'year': year,
+       'isbn': isbn,
+       'publisher': publisher
+    })
+
+def insert_article(title, author, year, doi, journal, volume, pages):
+    sql = text("INSERT INTO articles (title, writer, year, DOI," \
+    " journal, volume, pages) VALUES (:title, :writer, :year, :DOI, :journal, :volume, :pages)")
+    db_execute_insert(sql, {
+       'title': title,
+       'writer': author,
+       'year': year,
+       'DOI': doi,
+       'journal': journal,
+       'volume': volume,
+       'pages': pages
+    })
+
+def insert_inrproceedings(title, author, year, booktitle):
+    sql = text("INSERT INTO inproceedings (title, writer, year, booktitle)" \
+    "VALUES (:title, :writer, :year, :booktitle)")
+    db_execute_insert(sql, {
+       'title': title,
+       'writer': author,
+       'year': year,
+       'booktitle': booktitle,
+    })
 
 def get_books(sort='default'):
     sql = text("SELECT books.id AS id, " \
@@ -96,6 +128,44 @@ def get_inproceedings(sort='default'):
 
     return inproceedings
 
+def update_book(title, author, year, isbn, publisher, book_id):
+    sql = text("UPDATE books SET title = :title, writer = :writer," \
+    " year = :year, isbn = :isbn, publisher = :publisher WHERE id = :id")
+    db_execute_insert(sql, {
+       'title': title,
+       'writer': author,
+       'year': year,
+       'isbn': isbn,
+       'publisher': publisher,
+       'id': book_id
+    })
+
+def update_article(title, author, year, doi, journal, volume, pages, article_id):
+    sql = text("UPDATE articles SET title = :title, writer = :writer," \
+    " year = :year, DOI = :doi, journal = :journal, volume = :volume," \
+    " pages = :pages WHERE id = :id")
+    db_execute_insert(sql, {
+       'title': title,
+       'writer': author,
+       'year': year,
+       'doi': doi,
+       'journal': journal,
+       'volume' : volume,
+       'pages' : pages,
+       'id': article_id
+    })
+
+def update_inproceedings(title, author, year, booktitle, inproceeding_id):
+    sql = text("UPDATE inproceedings SET title = :title, writer = :writer," \
+    " year = :year, booktitle = :booktitle WHERE id = :id")
+    db_execute_insert(sql, {
+       'title': title,
+       'writer': author,
+       'year': year,
+       'booktitle': booktitle,
+       'id': inproceeding_id
+    })
+
 def get_book(book_id):
     sql = text("SELECT books.id, books.title, books.writer, books.year, " \
     "books.isbn, books.publisher FROM books WHERE books.id = :id ")
@@ -134,19 +204,13 @@ def get_all_references(sort='default'):
     return all_items
 
 def delete_book(book_id):
-    sql = text("DELETE FROM books WHERE id = :id")
-    db.session.execute(sql, {'id': book_id})
-    db.session.commit()
+    db_execute_insert(text("DELETE FROM books WHERE id = :id"), {'id': book_id})
 
 def delete_article(article_id):
-    sql = text("DELETE FROM articles WHERE id = :id")
-    db.session.execute(sql, {'id': article_id})
-    db.session.commit()
+    db_execute_insert(text("DELETE FROM articles WHERE id = :id"), {'id': article_id})
 
 def delete_inproceeding(inproceeding_id):
-    sql = text("DELETE FROM inproceedings WHERE id = :id")
-    db.session.execute(sql, {'id': inproceeding_id})
-    db.session.commit()
+    db_execute_insert(text("DELETE FROM inproceedings WHERE id = :id"), {'id': inproceeding_id})
 
 
 if __name__ == "__main__":
