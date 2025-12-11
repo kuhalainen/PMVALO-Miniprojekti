@@ -45,7 +45,6 @@ def setup_db():
     db.session.execute(text(schema_sql))
     db.session.commit()
 
-<<<<<<< HEAD
 def insert_book(title, author, year, isbn, publisher):
     sql = text("INSERT INTO books (title, writer, year, isbn," \
     " publisher) VALUES (:title, :writer, :year, :isbn, :publisher)")
