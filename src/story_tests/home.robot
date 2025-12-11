@@ -76,9 +76,11 @@ Kirjaa pystyy muokkaamaan
     Book Page Should Be Open
     Click Link  Muokkaa
     Modify Book Page Should Be Open
-    Input Text  author  NewAuthor
+    Input Text  title  Testbook_EDITED
     Click Button  Tallenna muutokset
+    Go To  ${HOME_URL}
     Main Page Should Be Open
+    Page Should Contain  Testbook_EDITED
 
 Kirjan pystyy poistamaan
     Click Link  Lisää kirja
