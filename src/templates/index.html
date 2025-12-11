@@ -13,7 +13,7 @@
     {% if messages %}
       <ul class=flashes>
         {% for category, message in messages %}
-          <li class="{{ category }}">{{ message }}</li>
+          <li class="{{ category }}">{{ message }}</li> 
         {% endfor %}
       </ul>
     {% endif %}
@@ -21,11 +21,7 @@
 
   <p>
     <a href="/books/new" class="button">Lisää kirja</a>
-  </p>
-  <p>
     <a href="/articles/new" class="button">Lisää artikkeli</a>
-  </p>
-  <p>
     <a href="/inproceedings/new" class="button">Lisää Konferenssijulkaisun Artikkeli</a>
   </p>
 
@@ -34,9 +30,13 @@
     <a href="/download_bibtex" class="button">Lataa bibtex tiedosto</a>
   </p>
 
-  <h2>Lisätyt viitteet: {{ countitems }}</h2>
-
+  <h2>Viitteitä näkyvillä: {{ countitems }}</h2>
   <form method="get" action="/">
+    <input type="hidden" name="sort" value="{{ sort }}">
+
+      <input type="text" name="search" placeholder="Hae..." value="{{ request.args.get('search', '') }}" class="searchbox">
+      <button type="submit" class="search-button">Hae</button>
+
     <select name="category" onchange="this.form.submit()">
         <option value="all"     {{ "selected" if selected == "all" else "" }}>Näytä kaikki</option>
         <option value="books" {{ "selected" if selected == "books" else "" }}>Näytä kirjat</option>
@@ -44,10 +44,10 @@
         <option value="inproceedings" {{ "selected" if selected == "inproceedings" else "" }}>Näytä konferenssijulkaisujen artikkelit</option>
     </select>
   </form>
-
   <p>
-    <a href="/?sort=author" class="button" > Järjestä kirjailijan mukaan</a>
-    <a href="/?sort=year" class="button" > Järjestä vuoden mukaan</a>
+    <a href="/?sort=author&search={{ request.args.get('search', '') }}&category={{ selected }}" class="button" > Järjestä kirjailijan mukaan</a>
+    <a href="/?sort=year&search={{ request.args.get('search', '') }}&category={{ selected }}" class="button" > Järjestä vuoden mukaan</a>
+    <a href="/?sort=default&search={{ request.args.get('search', '') }}&category={{ selected }}" class="button" > Järjestä otsikon mukaan</a>
   </p>
 
   <p>
@@ -57,6 +57,7 @@
       <br>
       <a href="/{{item.type}}/{{item.id}}" style="font-size: 20px;">{{item.title}}</a><br />
       <p>{{item.writer}} {{item.year}}</p>
+      <a href="/edit_{{item.type}}/{{item.id}}" class="button">Muokkaa viitettä</a>
       <a href="/remove_{{item.type}}/{{item.id}}" class="button">Poista viite</a>
     </ul>
     {%endfor%}

@@ -11,19 +11,19 @@ At start there are no references
     References are reset
 
 
-Click add book
+Kirjan lomake on olemassa
     Click Link  Lisää kirja
     Lisää kirja sivu Should Be Open
 
-Click add article
+Artikkelin lomake on olemassa
     Click Link  Lisää artikkeli
     Lisää artikkeli sivu Should Be Open
 
-Click add inproceeding
+Inproceeding lomake on olemassa
     Click Link  Lisää Konferenssijulkaisun Artikkeli
     Lisää Konferenssijulkaisun Artikkeli sivu Should Be Open
 
-Submit book
+Lisätty kirja näkyy etusivulla
     Click Link  Lisää kirja
     Lisää kirja sivu Should Be Open
     Input Text  title  Testbook
@@ -36,7 +36,7 @@ Submit book
     Page Should Contain  Testbook
 
 
-Submit article
+Lisätty artikkeli näkyy etusivulla
     Click Link  Lisää artikkeli
     Lisää artikkeli sivu Should Be Open
     Input Text  title  Testarticle
@@ -50,7 +50,7 @@ Submit article
     Main Page Should Be Open
     Page Should Contain  Testarticle
 
-Submit inproceeding
+Lisätty inproceeding näkyy etusivulla
     Click Link  Lisää Konferenssijulkaisun Artikkeli
     Lisää Konferenssijulkaisun Artikkeli sivu Should Be Open
     Input Text  title  Testinproceeding
@@ -61,7 +61,7 @@ Submit inproceeding
     Main Page Should Be Open
     Page Should Contain  Testinproceeding
 
-Modify book
+Kirjaa pystyy muokkaamaan
     Click Link  Lisää kirja
     Lisää kirja sivu Should Be Open
     Input Text  title  Testbook
@@ -76,11 +76,13 @@ Modify book
     Book Page Should Be Open
     Click Link  Muokkaa
     Modify Book Page Should Be Open
-    Input Text  author  NewAuthor
+    Input Text  title  Testbook_EDITED
     Click Button  Tallenna muutokset
+    Go To  ${HOME_URL}
     Main Page Should Be Open
+    Page Should Contain  Testbook_EDITED
 
-Delete book
+Kirjan pystyy poistamaan
     Click Link  Lisää kirja
     Lisää kirja sivu Should Be Open
     Input Text  title  Testbook
@@ -99,7 +101,7 @@ Delete book
     Main Page Should Be Open
     Page Should Not Contain  Testbook
 
-Modify article
+Artikkelia pystyy muokkaamaan
     Click Link  Lisää artikkeli
     Lisää artikkeli sivu Should Be Open
     Input Text  title  Testarticle
@@ -120,7 +122,7 @@ Modify article
     Click Button  Tallenna muutokset
     Main Page Should Be Open
 
-Delete article
+Artikkelin pystyy poistamaan
     Click Link  Lisää artikkeli
     Lisää artikkeli sivu Should Be Open
     Input Text  title  Testarticle
@@ -141,7 +143,7 @@ Delete article
     Main Page Should Be Open
     Page Should Not Contain  Testarticle
 
-Modify inproceeding
+Inproceedingia pystyy muokkaamaan
     Click Link  Lisää Konferenssijulkaisun Artikkeli
     Lisää Konferenssijulkaisun Artikkeli sivu Should Be Open
     Input Text  title  Testinproceeding
@@ -159,7 +161,7 @@ Modify inproceeding
     Click Button  Tallenna muutokset
     Main Page Should Be Open
 
-Delete inproceeding
+Inproceedingin pystyy poistamaan
     Click Link  Lisää Konferenssijulkaisun Artikkeli
     Lisää Konferenssijulkaisun Artikkeli sivu Should Be Open
     Input Text  title  Testinproceeding
@@ -177,7 +179,7 @@ Delete inproceeding
     Main Page Should Be Open
     Page Should Not Contain  Testinproceeding
 
-Filtering
+Viitetyypin valitsemalla näkymä muuttuu etusivulla
     Click Link  Lisää kirja
     Lisää kirja sivu Should Be Open
     Input Text  title  Testbook
@@ -262,7 +264,7 @@ Lisää viite sivu Should Be Open
     Title Should Be  Lisää viite
 
 References are reset
-    Page Should Contain  Lisätyt viitteet: 0
+    Page Should Contain  Viitteitä näkyvillä: 0
 
 Lisää artikkeli sivu Should Be Open
     Title Should Be  Lisää artikkeli

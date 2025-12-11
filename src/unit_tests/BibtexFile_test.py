@@ -12,11 +12,12 @@ class TestBibtex(unittest.TestCase):
         file = BibtexFile()
         file.add_book('151', self.book)
         content = file.get_file_content()
+        print(content)
         self.assertEqual(content, """@book{151,
+    author = {Kirjoittaja},
     isbn = {9780128043388},
     publisher = {Testipublisher},
     title = {Testikirja},
-    writer = {Kirjoittaja},
     year = {2005}
 }
 """)
@@ -27,11 +28,11 @@ class TestBibtex(unittest.TestCase):
         content = file.get_file_content()
         self.assertEqual(content, """@article{151,
     DOI = {10.1145/3366423},
+    author = {Kirjoittaja},
     journal = {Testijournal},
     pages = {1-5},
     title = {Testiartikkeli},
     volume = {5},
-    writer = {Kirjoittaja},
     year = {2005}
 }
 """)
@@ -40,9 +41,9 @@ class TestBibtex(unittest.TestCase):
         file.add_inproceeding('151', self.inproceeding)
         content = file.get_file_content()
         self.assertEqual(content, """@inproceedings{151,
+    author = {Kirjoittaja},
     booktitle = {Otsikko},
     title = {Testiinproceeding},
-    writer = {Kirjoittaja},
     year = {2005}
 }
 """)
