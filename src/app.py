@@ -2,7 +2,6 @@
 from flask import Flask, redirect, render_template, request, jsonify, flash, send_file
 import io
 from db_helper import reset_db, get_books, get_articles, get_inproceedings
-from repositories.todo_repository import get_todos, create_todo, set_done
 from config import text, db, app, test_env
 from util import UserInputError, validate_book, validate_article, validate_inproceedings
 import os
