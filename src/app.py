@@ -102,7 +102,6 @@ def create_book():
     isbn = request.form.get('isbn')
     publisher = request.form.get('publisher')
 
-    # Minimal validation: title and author required
     try:
         validate_book(title, author, year, isbn, publisher)
     except UserInputError as e:
@@ -140,7 +139,6 @@ def create_article():
         flash(str(e), 'error')
         return redirect('/articles/new')
 
-    # Minimal validation: title and author required
     if not title or not author:
         flash('Title and author are required.', 'error')
         return redirect('/articles/new')
@@ -156,8 +154,6 @@ def create_inproceeding():
     author = request.form.get('author')
     year = request.form.get('year')
     booktitle = request.form.get('booktitle')
-
-    # Minimal validation: title and author required
 
     try:
         validate_inproceedings(title, author, booktitle, year)
@@ -215,7 +211,6 @@ def edit_book_post(book_id):
     isbn = request.form.get('isbn')
     publisher = request.form.get('publisher')
 
-    # Minimal validation: title and author required
     if not title or not author:
         flash('Title and author are required.', 'error')
         return redirect(f'/edit_book/{book_id}')
@@ -291,7 +286,6 @@ def edit_article_post(article_id):
     volume = request.form.get('volume')
     pages = request.form.get('pages')
 
-    # Minimal validation: title and author required
     if not title or not author:
         flash('Title and author are required.', 'error')
         return redirect(f'/edit_article/{article_id}')
@@ -331,7 +325,6 @@ def inproceeding(inproceeding_id):
 
     current_inproceeding_dict = dict(current_inproceeding._mapping)
     current_inproceeding_dict['author'] = current_inproceeding_dict.pop('writer')
-    #current_inproceeding_dict['DOI'] = current_inproceeding_dict.pop('doi')
 
     return render_template("/reference_show.html",
                             title = "Inproceeding",
@@ -346,7 +339,6 @@ def edit_inproceeding(inproceeding_id):
 
     current_inproceeding_dict = dict(current_inproceeding._mapping)
     current_inproceeding_dict['author'] = current_inproceeding_dict.pop('writer')
-    #current_inproceeding_dict['DOI'] = current_inproceeding_dict.pop('doi')
 
     return render_template('reference_edit.html',
                         reference=current_inproceeding_dict,
@@ -365,7 +357,6 @@ def edit_inproceeding_post(inproceeding_id):
     year = request.form.get('year')
     booktitle = request.form.get('booktitle')
 
-    # Minimal validation: title and author required
     if not title or not author:
         flash('Title and author are required.', 'error')
         return redirect(f'/edit_inproceeding/{inproceeding_id}')
